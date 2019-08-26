@@ -9,6 +9,7 @@ import { RouterModule,Routes} from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BusLinesComponent } from './bus-lines/bus-lines.component';
 import { CardVerificationComponent } from './card-verification/card-verification.component';
+import { CenovnikComponent } from './cenovnik/cenovnik.component';
 
 const routes : Routes = [
   {path : "home", component: HomeComponent},
@@ -23,7 +24,8 @@ const routes : Routes = [
     HomeComponent,
     RegisterComponent,
     BusLinesComponent,
-    CardVerificationComponent
+    CardVerificationComponent,
+    CenovnikComponent
   ],
   imports: [
     BrowserModule,
