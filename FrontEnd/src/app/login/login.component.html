@@ -1,0 +1,10 @@
+<form [formGroup]="loginForm" (submit)="login()">
+    <p>Username:<span class="fa fa-user"></span><input Placeholder="Username" type="text" formControlName="UserName" required></p>
+    <p>Password:<span class="fa fa-lock"></span><input Placeholder="Password" type="password" formControlName="Password" required></p> 
+    <div>
+      <span style="width:50%; text-align:center;  display: inline-block;"><input type="submit" value="Login"></span>
+    </div>
+  </form>
+  
+  <a routerLink="/register">Register here</a>
+  
