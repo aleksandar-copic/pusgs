@@ -1,0 +1,28 @@
+<form [formGroup]="registacijaForm" (submit)="register()">
+
+    <fieldset class="clearfix">
+        
+        <h1>Register</h1>
+        <p>Please fill in this form to create an account.</p>
+  
+        <p><span class="fa fa-user"></span><input Placeholder="Enter Name" type="text" formControlName="Name" required></p> 
+        <p><span class="fa fa-user"></span><input Placeholder="Enter Surname" type="text" formControlName="Surname" required></p> 
+        <p><span class="fa fa-user"></span><input Placeholder="Enter Username" type="text" formControlName="UserName" required></p>
+        <p><span class="fa fa-lock"></span><input Placeholder="Enter Password" type="password" formControlName="Password" required></p> 
+        <p><span class="fa fa-lock"></span><input Placeholder="Repeat Password" type="password" formControlName="ConfirmPassword" required></p>
+        <p><span class="fa fa-user"></span><input Placeholder="Enter Email" type="email" formControlName="Email" required></p>
+        <p><span class="fa fa-user"></span><input Placeholder="Enter Address" type="email" formControlName="Address" required></p>
+        <p><span class="fa fa-user"></span><input Placeholder="Enter Phone Number" type="text" formControlName="PhoneNumber" required></p>
+        <p>Birth Date:</p>
+        <p><span class="fa fa-user"></span><input Placeholder="Enter Date" type="date" formControlName="Date" required></p>      
+        <div class="form-group row">
+          <input type="file" formControlName="ImageUrl" (change)="onFileSelected($event)" />
+        </div>
+        <br><br>
+        <div>
+          <span style="width:50%; text-align:left;  display: inline-block;"><input type="submit" value="Register"></span>
+        </div>
+  
+    </fieldset>
+  <div class="clearfix"></div>
+  </form>

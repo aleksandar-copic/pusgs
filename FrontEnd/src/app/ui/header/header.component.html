@@ -1,0 +1,86 @@
+<nav class="navbar navbar-dark bg-primary mb-lg-5 ">
+  <a class="navbar-brand" href="/">JGSP - NOVI SAD</a>
+  <div class="navbar-expand mr-auto">
+    <div class="navbar-nav col-xs-6">
+      <a
+        *ngIf="!jwtIsAdmin() && !jwtIsController()"
+        class="nav-item nav-link"
+        href="http://localhost:4200/redvoznje"
+        >REDOVI VOŽNJE</a
+      >
+      <a
+        *ngIf="!jwtIsAdmin() && !jwtIsController()"
+        class="nav-item nav-link"
+        href="/"
+        >MREŽE LINIJA</a
+      >
+      <a
+        *ngIf="!jwtIsAdmin() && !jwtIsController()"
+        class="nav-item nav-link"
+        href="/"
+        >TRENUTNE LOKACIJE VOZILA</a
+      >
+      <a
+        *ngIf="!jwtIsAdmin() && !jwtIsController()"
+        class="nav-item nav-link"
+        href="http://localhost:4200/cenovnik"
+        >CENOVNIK</a
+      >
+      <a
+        *ngIf="!jwtIsUndefined()"
+        class="nav-item nav-link"
+        href="http://localhost:4200/login"
+        >PRIJAVI SE/REGISTRUJ SE</a
+      >
+      <a
+        *ngIf="jwtIsAdmin()"
+        class="nav-item nav-link"
+        href="http://localhost:4200/lineEdit"
+        >UREDI LINIJE</a
+      >
+      <a
+        *ngIf="jwtIsAdmin()"
+        class="nav-item nav-link"
+        href="http://localhost:4200/stationEdit"
+        >UREDI STANICE</a
+      >
+      <a
+        *ngIf="jwtIsAdmin()"
+        class="nav-item nav-link"
+        href="http://localhost:4200/timetableEdit"
+        >UREDI REDOVE VOŽNJE</a
+      >
+      <a
+        *ngIf="jwtIsAdmin()"
+        class="nav-item nav-link"
+        href="http://localhost:4200/"
+        >UREDI CENOVNIK</a
+      >
+      <a
+        *ngIf="jwtIsController()"
+        class="nav-item nav-link"
+        href="http://localhost:4200/verificateUser"
+        >VERIFIKOVANJE KORISNIKA</a
+      >
+      <a
+        *ngIf="jwtIsController()"
+        class="nav-item nav-link"
+        href="http://localhost:4200/cardVerification"
+        >VALIDACIJA KARTE</a
+      >
+      <a
+        *ngIf="jwtIsUndefined()"
+        class="nav-item nav-link"
+        href="http://localhost:4200/profil"
+        >MOJ PROFIL</a
+      >
+      <a
+        *ngIf="jwtIsUndefined()"
+        class="nav-item nav-link"
+        (click)="logout()"
+        href="http://localhost:4200/login"
+        >ODJAVI SE</a
+      >
+    </div>
+  </div>
+</nav>
