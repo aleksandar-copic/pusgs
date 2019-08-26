@@ -1,0 +1,7 @@
+<form [formGroup]="verificationForm" (submit)="checkId()">
+    ID karte:<br>
+    <input Placeholder="Id" type="text" formControlName="Id" required>
+    <br><br>
+    <input type="submit" value="Proveri">
+  </form> 
+  Status: {{message}}
