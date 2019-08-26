@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { RouterModule,Routes} from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BusLinesComponent } from './bus-lines/bus-lines.component';
 
 const routes : Routes = [
   {path : "home", component: HomeComponent},
@@ -19,7 +20,8 @@ const routes : Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    BusLinesComponent
   ],
   imports: [
     BrowserModule,
