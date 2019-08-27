@@ -11,6 +11,7 @@ import { BusLinesComponent } from './bus-lines/bus-lines.component';
 import { CardVerificationComponent } from './card-verification/card-verification.component';
 import { CenovnikComponent } from './cenovnik/cenovnik.component';
 import { LoginComponent } from './login/login.component';
+import { ProfilComponent } from './profil/profil.component';
 
 const routes : Routes = [
   {path : "home", component: HomeComponent},
@@ -27,7 +28,8 @@ const routes : Routes = [
     BusLinesComponent,
     CardVerificationComponent,
     CenovnikComponent,
-    LoginComponent
+    LoginComponent,
+    ProfilComponent
   ],
   imports: [
     BrowserModule,
