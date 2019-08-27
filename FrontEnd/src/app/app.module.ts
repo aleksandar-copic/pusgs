@@ -12,6 +12,7 @@ import { CardVerificationComponent } from './card-verification/card-verification
 import { CenovnikComponent } from './cenovnik/cenovnik.component';
 import { LoginComponent } from './login/login.component';
 import { ProfilComponent } from './profil/profil.component';
+import { RedvoznjeComponent } from './redvoznje/redvoznje.component';
 
 const routes : Routes = [
   {path : "home", component: HomeComponent},
@@ -29,7 +30,8 @@ const routes : Routes = [
     CardVerificationComponent,
     CenovnikComponent,
     LoginComponent,
-    ProfilComponent
+    ProfilComponent,
+    RedvoznjeComponent
   ],
   imports: [
     BrowserModule,

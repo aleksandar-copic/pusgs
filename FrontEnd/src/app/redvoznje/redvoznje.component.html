@@ -1,0 +1,119 @@
+<form id="rvform" name="rvform" method="get">
+    <!--action="redvoznje.php"-->
+  
+    <table class="cenovnik-form table " width="100%">
+      <tbody>
+        <!-- <tr>
+          <td width="210px">
+            <span class="lightblue-box-label"> Red voznje </span>
+          </td>
+          <td>
+            <select
+              [(ngModel)]="selectedTimetableType"
+              name="selectedTimetableType"
+            >
+              <option
+                *ngFor="let TimetableType of redVoznjeInfo.TimetableTypes"
+                [ngValue]="TimetableType"
+              >
+                {{ TimetableType.Name }}
+              </option>
+            </select>
+          </td>
+        </tr> -->
+  
+        <tr>
+          <td width="210px">
+            <span class="lightblue-box-label"> Red voznje: </span>
+          </td>
+          <td>
+            <select
+              class="mce-selected"
+              id="rv"
+              onchange="lista_linija();"
+              name="rv"
+            >
+              <option value="rvg" selected="">Gradski</option>
+              <option value="rvp">Prigradski</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="lightblue-box-label">
+              Dan
+            </span>
+          </td>
+          <td>
+            <select
+              class="selectbox"
+              id="dan"
+              onchange="lista_linija();"
+              name="dan"
+            >
+              <option value="R">Radni dan</option>
+              <option value="S" selected="">Subota</option>
+              <option value="N">Nedelja</option>
+            </select>
+          </td>
+        </tr>
+  
+        <tr>
+          <td>
+            <span class="lightblue-box-label">
+              Linija
+              <br />
+              (Izaberite liniju)
+            </span>
+          </td>
+          <td valign="top">
+            <div id="lista_linija">
+              <select
+                id="linija"
+                class="listbox"
+                size="5"
+                name="linija[]"
+                multiple=""
+              >
+                <option value="1">1 KLISA-CENTAR-LIMAN I</option>
+                <option value="2.">2 CENTAR - NOVO NASELJE</option>
+                <option value="3.">3 PETROVARADIN-CENTAR-DETELINARA</option>
+                <option value="4">4 LIMAN IV - CENTAR - Z.STANICA</option>
+                <option value="5"
+                  >5 TEMERINSKI PUT-CENTAR-AVIJATIČAR.NASELJE</option
+                >
+                <option value="6">6 PODBARA-CENTAR-ADICE</option>
+                <option value="7A."
+                  >7A N.NASELJE-Z.STAN-F.PIJA-LIMAN4-N.NASELJE</option
+                >
+                <option value="7B."
+                  >7B N.NASELJE-LIMAN4-F.PIJA-Z.STAN-N.NASELJE</option
+                >
+                <option value="8">8 NOVO NASELJE-CENTAR-LIMAN I</option>
+                <option value="9.">9 NOVO NASELJE - LIMAN - PETROVARADIN</option>
+                <option value="10">10 CENTAR-INDUST.ZONA JUG</option>
+              </select>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <div>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="blue-button"
+                onclick="ispis_polazaka()"
+              >
+                Prikazi
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    Polasci sa stanice:<br />
+    {{ timetable.Times }}
+  </form>
+  
