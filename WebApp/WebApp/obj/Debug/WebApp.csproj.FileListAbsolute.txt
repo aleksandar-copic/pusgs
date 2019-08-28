@@ -250,3 +250,6 @@ C:\Users\Stefan\Desktop\PUSGS\WebApp\WebApp\obj\Debug\WebApp.csproj.CoreCompileI
 C:\Users\Stefan\Desktop\PUSGS\WebApp\WebApp\obj\Debug\WebApp.csproj.CopyComplete
 C:\Users\Stefan\Desktop\PUSGS\WebApp\WebApp\obj\Debug\WebApp.dll
 C:\Users\Stefan\Desktop\PUSGS\WebApp\WebApp\obj\Debug\WebApp.pdb
+C:\Users\Stefan\Desktop\PUSGS\WebApp\WebApp\obj\Debug\WebApp.Migrations.first.resources
+C:\Users\Stefan\Desktop\PUSGS\WebApp\WebApp\obj\Debug\WebApp.Migrations.second.resources
+C:\Users\Stefan\Desktop\PUSGS\WebApp\WebApp\obj\Debug\WebApp.Migrations.TicketsAdded.resources

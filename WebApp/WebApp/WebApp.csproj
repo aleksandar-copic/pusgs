@@ -251,6 +251,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PriceListController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -259,13 +260,41 @@
     <Compile Include="Migrations\201905222056072_InitialMigration.Designer.cs">
       <DependentUpon>201905222056072_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908281650027_first.cs" />
+    <Compile Include="Migrations\201908281650027_first.Designer.cs">
+      <DependentUpon>201908281650027_first.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908281723301_second.cs" />
+    <Compile Include="Migrations\201908281723301_second.Designer.cs">
+      <DependentUpon>201908281723301_second.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908281901397_TicketsAdded.cs" />
+    <Compile Include="Migrations\201908281901397_TicketsAdded.Designer.cs">
+      <DependentUpon>201908281901397_TicketsAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\PriceList.cs" />
+    <Compile Include="Models\TicketPurchaseBindingModel.cs" />
+    <Compile Include="Models\Ticket.cs" />
+    <Compile Include="Models\TicketPrice.cs" />
+    <Compile Include="Models\TicketType.cs" />
+    <Compile Include="Models\UserType.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
+    <Compile Include="Persistence\Repository\IPriceListRepository.cs" />
     <Compile Include="Persistence\Repository\IRepository.cs" />
+    <Compile Include="Persistence\Repository\ITicketPriceRepository.cs" />
+    <Compile Include="Persistence\Repository\ITicketRepository.cs" />
+    <Compile Include="Persistence\Repository\ITicketTypeRepository.cs" />
+    <Compile Include="Persistence\Repository\IUserTypeRepository.cs" />
+    <Compile Include="Persistence\Repository\PriceListRepository.cs" />
     <Compile Include="Persistence\Repository\Repository.cs" />
+    <Compile Include="Persistence\Repository\TicketRepository.cs" />
+    <Compile Include="Persistence\Repository\TicketPriceRepository.cs" />
+    <Compile Include="Persistence\Repository\TicketTypeRepository.cs" />
+    <Compile Include="Persistence\Repository\UserTypeRepositorycs.cs" />
     <Compile Include="Persistence\UnitOfWork\DemoUnitOfWork.cs" />
     <Compile Include="Persistence\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -368,6 +397,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905222056072_InitialMigration.resx">
       <DependentUpon>201905222056072_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908281650027_first.resx">
+      <DependentUpon>201908281650027_first.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908281723301_second.resx">
+      <DependentUpon>201908281723301_second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908281901397_TicketsAdded.resx">
+      <DependentUpon>201908281901397_TicketsAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
