@@ -32,6 +32,9 @@ import { AuthGuardAdmin } from './services/http/auth.guard';
 import { AuthGuardController } from './services/http/auth2.guard';
 import { VerificateUserComponent } from './verificate-user/verificate-user.component';
 import { VerificateUserHttpService } from './services/verificateUser.service';
+import { LineComponent } from './line/line.component';
+import { PriceListEditComponent } from './price-list-edit/price-list-edit.component';
+import { StationEditComponent } from './station-edit/station-edit.component';
 
 
 const routes : Routes = [
@@ -59,6 +62,9 @@ const routes : Routes = [
     CenovnikComponent,
     ProfilComponent,
     VerificateUserComponent,
+    LineComponent,
+    PriceListEditComponent,
+    StationEditComponent,
     //LineEditComponent,
     ///StationEditComponent,
    // TimetableEditComponent,

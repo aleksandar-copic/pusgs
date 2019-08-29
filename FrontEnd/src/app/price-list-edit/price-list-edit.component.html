@@ -1,0 +1,11 @@
+<form [formGroup]="ticketPriceEdit" (ngSubmit)="Izaberi()">
+    <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedTicket">
+        <option *ngFor="let ticket of allTicketTypes" [ngValue]="ticket">{{ticket}}</option>
+    </select>
+    <button type="submit" class="btn btn-secondary">Prikazi cenu</button>
+  </form>
+  <form [formGroup]="ticketPriceEdit" (ngSubmit)="Izmeni()">
+    <label for="Price" class="col-sm-2 col-form-label">Cena: </label>
+    <input type="text" class="form-control" formControlName="Price" id="Price"> 
+    <button type="submit" class="btn btn-secondary">Izmeni</button>
+  </form>
