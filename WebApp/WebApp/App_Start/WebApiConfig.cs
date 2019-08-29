@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
@@ -30,12 +31,22 @@ namespace WebApp
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+            // EnableCrossSiteRequests(config);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+        }
+
+        private static void EnableCrossSiteRequests(HttpConfiguration config)
+        {
+            //var cors = new EnableCorsAttribute(
+            //    origins: "*",
+            //    headers: "*",
+            //    methods: "*");
+            //config.EnableCors(new EnableCorsAttribute();
         }
     }
 }
