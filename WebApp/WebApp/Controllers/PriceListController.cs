@@ -53,9 +53,9 @@ namespace WebApp.Controllers
                 type = Db.userTypeRepository.Find(x => x.Id.Equals(typeId)).FirstOrDefault().Name;
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                type = "neregistrovan" + e.Message.ToString();
+                type = "neregistrovan" /*+ e.Message.ToString()*/;
 
             }
 
