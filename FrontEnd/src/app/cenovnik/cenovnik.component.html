@@ -1,15 +1,19 @@
+<br><br>
 <p>
     <select [(ngModel)]="selectedTip">
       <option *ngFor="let t of karte">
         {{ t }}
       </option>
     </select>
+    <br>
     <br />
-    <button (click)="getCenaKarte()">Prikazi cenu ove karte!</button>
+    <button (click)="getCenaKarte()">Show ticket price!</button>
     <br />
-    Cena karte: {{ cena }}
+    <br>
+    Ticket price: {{ cena }}
     <br />
-    <button (click)="kupiKartu()">Kupi kartu!</button>
+    <br><br>
+    <button (click)="kupiKartu()">Buy ticket !</button>
     <br />
     {{ kupljena }}
   </p>

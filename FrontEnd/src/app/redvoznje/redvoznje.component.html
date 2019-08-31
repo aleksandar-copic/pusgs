@@ -24,7 +24,7 @@
   
         <tr>
           <td width="210px">
-            <span class="lightblue-box-label"> Red voznje: </span>
+            <span class="lightblue-box-label"> Type: </span>
           </td>
           <td>
             <select
@@ -33,15 +33,15 @@
               onchange="lista_linija();"
               name="rv"
             >
-              <option value="rvg" selected="">Gradski</option>
-              <option value="rvp">Prigradski</option>
+              <option value="rvg" selected="">Urban</option>
+              <option value="rvp">Suburban</option>
             </select>
           </td>
         </tr>
         <tr>
           <td>
             <span class="lightblue-box-label">
-              Dan
+              Day:
             </span>
           </td>
           <td>
@@ -51,9 +51,9 @@
               onchange="lista_linija();"
               name="dan"
             >
-              <option value="R">Radni dan</option>
-              <option value="S" selected="">Subota</option>
-              <option value="N">Nedelja</option>
+              <option value="R">Work day</option>
+              <option value="S" selected="">Saturday</option>
+              <option value="N">Sunday</option>
             </select>
           </td>
         </tr>
@@ -61,9 +61,9 @@
         <tr>
           <td>
             <span class="lightblue-box-label">
-              Linija
+              Route:
               <br />
-              (Izaberite liniju)
+              (Choose a route)
             </span>
           </td>
           <td valign="top">
@@ -106,14 +106,14 @@
                 id="blue-button"
                 onclick="ispis_polazaka()"
               >
-                Prikazi
+                Show
               </button>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
-    Polasci sa stanice:<br />
+    Departure:<br />
     {{ timetable.Times }}
   </form>
   

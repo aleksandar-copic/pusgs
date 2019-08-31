@@ -1,85 +1,86 @@
-<nav class="navbar navbar-dark bg-primary mb-lg-5 ">
-  <a class="navbar-brand" href="/">JGSP - NOVI SAD</a>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">JGSP - NOVI SAD </a>
   <div class="navbar-expand mr-auto">
     <div class="navbar-nav col-xs-6">
       <a
         *ngIf="!jwtIsAdmin() && !jwtIsController()"
         class="nav-item nav-link"
         href="http://localhost:4200/redvoznje"
-        >REDOVI VOŽNJE</a
+        >TIMETABLES</a
       >
       <a
         *ngIf="!jwtIsAdmin() && !jwtIsController()"
         class="nav-item nav-link"
         href="/"
-        >MREŽE LINIJA</a
+        >ROUTES</a
       >
       <a
         *ngIf="!jwtIsAdmin() && !jwtIsController()"
         class="nav-item nav-link"
         href="/"
-        >TRENUTNE LOKACIJE VOZILA</a
+        >CURRENT VEHICLE LOCATIONS</a
       >
       <a
         *ngIf="!jwtIsAdmin() && !jwtIsController()"
         class="nav-item nav-link"
         href="http://localhost:4200/cenovnik"
-        >CENOVNIK</a
+        >PRICELIST</a
       >
+      
       <a
         *ngIf="!jwtIsUndefined()"
         class="nav-item nav-link"
         href="http://localhost:4200/login"
-        >PRIJAVI SE/REGISTRUJ SE</a
+        >LOG IN/REGISTER</a
       >
       <a
         *ngIf="jwtIsAdmin()"
         class="nav-item nav-link"
         href="http://localhost:4200/lineEdit"
-        >UREDI LINIJE</a
+        >EDIT ROUTES</a
       >
       <a
         *ngIf="jwtIsAdmin()"
         class="nav-item nav-link"
         href="http://localhost:4200/stationEdit"
-        >UREDI STANICE</a
+        >EDIT STATIONS</a
       >
       <a
         *ngIf="jwtIsAdmin()"
         class="nav-item nav-link"
         href="http://localhost:4200/timetableEdit"
-        >UREDI REDOVE VOŽNJE</a
+        >EDIT TIMETABLES</a
       >
       <a
         *ngIf="jwtIsAdmin()"
         class="nav-item nav-link"
         href="http://localhost:4200/"
-        >UREDI CENOVNIK</a
+        >EDIT PRICELIST</a
       >
       <a
         *ngIf="jwtIsController()"
         class="nav-item nav-link"
         href="http://localhost:4200/verificateUser"
-        >VERIFIKOVANJE KORISNIKA</a
+        >USER VERIFICATION</a
       >
       <a
         *ngIf="jwtIsController()"
         class="nav-item nav-link"
         href="http://localhost:4200/cardVerification"
-        >VALIDACIJA KARTE</a
+        >TICKET VALIDATION</a
       >
       <a
         *ngIf="jwtIsUndefined()"
         class="nav-item nav-link"
         href="http://localhost:4200/profil"
-        >MOJ PROFIL</a
+        >MY PROFILE</a
       >
       <a
         *ngIf="jwtIsUndefined()"
         class="nav-item nav-link"
         (click)="logout()"
         href="http://localhost:4200/login"
-        >ODJAVI SE</a
+        >LOG OUT</a
       >
     </div>
   </div>
