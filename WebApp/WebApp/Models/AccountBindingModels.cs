@@ -39,6 +39,10 @@ namespace WebApp.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
@@ -48,6 +52,31 @@ namespace WebApp.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+
+        [Required]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Surname")]
+        public string Surname { get; set; }
+
+        [Required]
+        [Display(Name = "Date")]
+        public string Date { get; set; }
+
+        [Required]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
+        [Required]
+        [Display(Name = "PhoneNumber")]
+        public string PhoneNumber { get; set; }
+
+        //[Required]
+        [Display(Name = "ImageUrl")]
+        public string ImageUrl { get; set; }
     }
 
     public class RegisterExternalBindingModel
