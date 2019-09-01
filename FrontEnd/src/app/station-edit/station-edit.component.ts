@@ -22,8 +22,6 @@ export class StationEditComponent implements OnInit {
   stationForm = this.fb.group({
     Name: ['', Validators.required],
     Address: ['', Validators.required],
-    X: ['', Validators.required],
-    Y: ['', Validators.required],
   });
 
   selectedLine: string
@@ -43,8 +41,6 @@ export class StationEditComponent implements OnInit {
 
   ime: string
   adresa: string
-  x: number
-  y: number
 
   ngOnInit() {
     this.http.getAll().subscribe((station) => {
@@ -62,7 +58,7 @@ export class StationEditComponent implements OnInit {
   getSelectedStation(){
     this.http.getStation(this.selectedStation).subscribe((data) => {
       this.idStation = data.Id;
-      this.stationForm.patchValue({ Name : data.Name, Address : data.Address, X : data.X, Y : data.Y })
+      this.stationForm.patchValue({ Name : data.Name, Address : data.Address })
       err => console.log(err);
     });
     this.http.getLines(this.selectedStation).subscribe((data) => {
@@ -137,8 +133,6 @@ export class StationEditComponent implements OnInit {
     this.newStation.LinesAdd = this.LinesAdd;
     this.newStation.Name = this.ime;
     this.newStation.Address = this.adresa;
-    this.newStation.X = this.x;
-    this.newStation.Y = this.y;
     console.log(this.newStation.Name + this.ime);
     this.http.addStation(this.newStation).subscribe((data) => {
       if(data == "uspesno")
