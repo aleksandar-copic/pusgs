@@ -75,6 +75,10 @@ namespace WebApp.App_Start
             container.RegisterType<ITicketPriceRepository, TicketPriceRepository>();
             container.RegisterType<ITicketTypeRepository, TicketTypeRepository>();
             container.RegisterType<ITicketRepository, TicketRepository>();
+            container.RegisterType<ILineRepository, LineRepository>();
+            container.RegisterType<IStationRepository, StationRepository>();
+            container.RegisterType<ITimeTableRepository, TimeTableRepository>();
+            container.RegisterType<IVehicleRepository, VehicleRepository>();
 
             container.RegisterType<IUnitOfWork, DemoUnitOfWork>();
         }

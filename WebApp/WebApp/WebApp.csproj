@@ -277,29 +277,45 @@
     <Compile Include="Migrations\201908291739064_FOURTH.Designer.cs">
       <DependentUpon>201908291739064_FOURTH.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909011250247_FIFTH.cs" />
+    <Compile Include="Migrations\201909011250247_FIFTH.Designer.cs">
+      <DependentUpon>201909011250247_FIFTH.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Line.cs" />
     <Compile Include="Models\PriceList.cs" />
+    <Compile Include="Models\Station.cs" />
     <Compile Include="Models\TicketPurchaseBindingModel.cs" />
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Models\TicketPrice.cs" />
     <Compile Include="Models\TicketType.cs" />
+    <Compile Include="Models\TimeTable.cs" />
     <Compile Include="Models\UserType.cs" />
+    <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
+    <Compile Include="Persistence\Repository\ITimeTableRepository.cs" />
+    <Compile Include="Persistence\Repository\IVehicleRepository.cs" />
+    <Compile Include="Persistence\Repository\TimeTableRepository.cs" />
+    <Compile Include="Persistence\Repository\ILineRepository.cs" />
     <Compile Include="Persistence\Repository\IPriceListRepository.cs" />
     <Compile Include="Persistence\Repository\IRepository.cs" />
+    <Compile Include="Persistence\Repository\IStationRepository.cs" />
     <Compile Include="Persistence\Repository\ITicketPriceRepository.cs" />
     <Compile Include="Persistence\Repository\ITicketRepository.cs" />
     <Compile Include="Persistence\Repository\ITicketTypeRepository.cs" />
     <Compile Include="Persistence\Repository\IUserTypeRepository.cs" />
+    <Compile Include="Persistence\Repository\LineRepository.cs" />
     <Compile Include="Persistence\Repository\PriceListRepository.cs" />
     <Compile Include="Persistence\Repository\Repository.cs" />
+    <Compile Include="Persistence\Repository\StationRepository.cs" />
     <Compile Include="Persistence\Repository\TicketRepository.cs" />
     <Compile Include="Persistence\Repository\TicketPriceRepository.cs" />
     <Compile Include="Persistence\Repository\TicketTypeRepository.cs" />
     <Compile Include="Persistence\Repository\UserTypeRepositorycs.cs" />
+    <Compile Include="Persistence\Repository\VehicleRepository.cs" />
     <Compile Include="Persistence\UnitOfWork\DemoUnitOfWork.cs" />
     <Compile Include="Persistence\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -414,6 +430,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908291739064_FOURTH.resx">
       <DependentUpon>201908291739064_FOURTH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909011250247_FIFTH.resx">
+      <DependentUpon>201909011250247_FIFTH.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

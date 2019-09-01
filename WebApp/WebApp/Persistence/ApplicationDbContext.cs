@@ -16,6 +16,11 @@ namespace WebApp.Persistence
         public DbSet<TicketPrice> TicketPrice { get; set; }
         public DbSet<PriceList> Pricelist { get; set; }
         public DbSet<UserType> UserType { get; set; }
+        public DbSet<Line> Line { get; set; }
+        public DbSet<Station> Station { get; set; }
+        public DbSet<TimeTable> TimeTable { get; set; }
+        public DbSet<Vehicle> Vehicle { get; set; }
+
 
 
         public ApplicationDbContext()

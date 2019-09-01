@@ -24,7 +24,7 @@
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
 
-            System.Diagnostics.Debugger.Launch();
+            // System.Diagnostics.Debugger.Launch();
 
             try
             {
@@ -217,6 +217,74 @@
                     context.TicketPrice.Add(ticketPrice);
                     context.SaveChanges();
                 }
+
+                // Lines
+                if (!context.Line.Any(t => t.Id == 1))
+                {
+                    Line line = new Line() { Id = 1, SerialNumber = 1 };
+                    context.Line.Add(line);
+                    context.SaveChanges();
+                }
+
+                if (!context.Line.Any(t => t.Id == 2))
+                {
+                    Line line = new Line() { Id = 2, SerialNumber = 2 };
+                    context.Line.Add(line);
+                    context.SaveChanges();
+                }
+                if (!context.Line.Any(t => t.Id == 3))
+                {
+                    Line line = new Line() { Id = 3, SerialNumber = 3 };
+                    context.Line.Add(line);
+                    context.SaveChanges();
+                }
+                if (!context.Line.Any(t => t.Id == 4))
+                {
+                    Line line = new Line() { Id = 4, SerialNumber = 4 };
+                    context.Line.Add(line);
+                    context.SaveChanges();
+                }
+                if (!context.Line.Any(t => t.Id == 5))
+                {
+                    Line line = new Line() { Id = 5, SerialNumber = 5 };
+                    context.Line.Add(line);
+                    context.SaveChanges();
+                }
+                // Stations
+                if (!context.Station.Any(t => t.Name == "Prva"))
+                {
+                    Station station = new Station() { Id = 1, Name = "Prva", Address = "Adresa Prve" };
+                    context.Station.Add(station);
+                    context.SaveChanges();
+                }
+
+                if (!context.Station.Any(t => t.Name == "Druga"))
+                {
+                    Station station = new Station() { Id = 1, Name = "Prva", Address = "Adresa Druge" };
+                    context.Station.Add(station);
+                    context.SaveChanges();
+                }
+                // Timetable
+                if (!context.TimeTable.Any(t => t.Id == 1))
+                {
+                    TimeTable timetable = new TimeTable() { Id = 1, BusLineId = 1, TimetableTypeId = 1, DayTypeId = 1, Times = "9:50 10:50 11:50" };
+                    context.TimeTable.Add(timetable);
+                    context.SaveChanges();
+                }
+
+                if (!context.TimeTable.Any(t => t.Id == 2))
+                {
+                    TimeTable timetable = new TimeTable() { Id = 2, BusLineId = 2, TimetableTypeId = 2, DayTypeId = 2, Times = "9:30 10:30 11:30 12:30 13:30" };
+                    context.TimeTable.Add(timetable);
+                    context.SaveChanges();
+                }
+                if (!context.TimeTable.Any(t => t.Id == 3))
+                {
+                    TimeTable timetable = new TimeTable() { Id = 3, BusLineId = 1, TimetableTypeId = 1, DayTypeId = 2, Times = "9:10 10:10 11:10 12:10 13:10" };
+                    context.TimeTable.Add(timetable);
+                    context.SaveChanges();
+                }
+
             }
             catch (DbEntityValidationException e)
             {

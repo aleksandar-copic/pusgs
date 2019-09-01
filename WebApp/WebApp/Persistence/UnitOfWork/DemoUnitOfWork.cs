@@ -44,6 +44,17 @@ namespace WebApp.Persistence.UnitOfWork
         [Dependency]
         public ITicketRepository ticketRepository { get; set; }
 
+        [Dependency]
+        public ILineRepository lineRepository { get; set; }
+
+        [Dependency]
+        public IStationRepository stationRepository { get; set; }
+
+        [Dependency]
+        public ITimeTableRepository timeTableRepository { get; set; }
+
+        [Dependency]
+        public IVehicleRepository vehicleRepository { get; set; }
 
         //private int SaveChanges(DbContext context)
         //{
