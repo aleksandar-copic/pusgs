@@ -36,8 +36,8 @@ namespace WebApp.Controllers
 
 
         [ResponseType(typeof(string))]
-        [Route("api/RedVoznje/GetPolasci/{selectedLinija}/{selectedDan}/{selectedTeritorija}")]
-        public IHttpActionResult GetPolasci(int selectedLinija, int selectedDan, int selectedTeritorija)
+        [Route("api/TimeTable/GetTables/{selectedTeritory}/{selectedDay}/{selectedLine}")]
+        public IHttpActionResult GetPolasci(string selectedTeritory, string selectedDay, int selectedLine)
         {
             //List<DayType> dani = new List<DayType>();
             //DayType ret1 = new DayType();
@@ -54,7 +54,7 @@ namespace WebApp.Controllers
 
             foreach (TimeTable ttt in lines)
             {
-                if (ttt.TimetableTypeId == selectedTeritorija && ttt.DayTypeId == selectedDan && ttt.BusLineId == selectedLinija) {
+                if (ttt.TimetableType == selectedTeritory && ttt.DayType == selectedDay && ttt.BusLineId == selectedLine) {
                     ret = ttt.Times;
                     break;
                 }

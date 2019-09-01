@@ -11,11 +11,11 @@
             <select
               class="mce-selected"
               id="rv"
-              onchange="lista_linija();"
               name="rv"
+              [(ngModel)]="selectedTimetableType"
             >
-              <option value="rvg" selected="">Urban</option>
-              <option value="rvp">Suburban</option>
+              <option value="Urban" selected="">Urban</option>
+              <option value="Suburban">Suburban</option>
             </select>
           </td>
         </tr>
@@ -29,12 +29,12 @@
             <select
               class="selectbox"
               id="dan"
-              onchange="lista_linija();"
               name="dan"
+              [(ngModel)]="selectedDayType"
             >
-              <option value="R">Work day</option>
-              <option value="S" selected="">Saturday</option>
-              <option value="N">Sunday</option>
+              <option value="WorkDay">Work day</option>
+              <option value="Saturday" selected="">Saturday</option>
+              <option value="Sunday">Sunday</option>
             </select>
           </td>
         </tr>
@@ -93,7 +93,7 @@
                 type="button"
                 class="btn btn-secondary"
                 id="blue-button"
-                onclick="ispis_polazaka()"
+                (click)="ispisPolaska()"
               >
                 Show
               </button>

@@ -14,8 +14,8 @@ import { RedVoznjeHttpService } from "../services/redvoznje.service";
 
 export class RedvoznjeComponent implements OnInit {
   redVoznjeInfo: RedVoznjeInfo = new RedVoznjeInfo();
-  selectedTimetableType: TimetableType = new TimetableType();
-  selectedDayType: DayType = new DayType();
+  selectedTimetableType: string;
+  selectedDayType: string;
   selectedLine: Line = new Line();
   selectedLinija: number;
   selectedDan: number;
@@ -28,10 +28,7 @@ export class RedvoznjeComponent implements OnInit {
   constructor(private http: RedVoznjeHttpService) {}
 
   ngOnInit() {
-    // this.http.getAll().subscribe(redVoznjeInfo => {
-    //   this.redVoznjeInfo = redVoznjeInfo;
-    //   err => console.log(err);
-    // });
+    this.ShowLines();
   }
 
   changeselectedLine() {
@@ -43,19 +40,21 @@ export class RedvoznjeComponent implements OnInit {
     });
   }
 
-  ShowLines(routeType : number){
-    this.http.getLines(routeType).subscribe(data => {
+  ShowLines(){
+    this.http.getLines().subscribe(data => {
       console.log(data);
       this.lines = data;
     });
   }
 
   ispisPolaska() {
+    console.log("IM HERE!");
     this.http
       .getSelected(
-        this.selectedTimetableType.Id,
-        this.selectedDayType.Id,
-        this.selectedLine.Id
+        this.selectedTimetableType,
+        this.selectedDayType,
+        1
+        // this.selectedLine ----- POPRAVITI
       )
       .subscribe(data => {
         this.timetable.Times = data;

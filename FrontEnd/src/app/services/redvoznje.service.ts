@@ -43,13 +43,13 @@ export class RedVoznjeHttpService {
   //     });
   //   }
 
-  getLines(routeType : number) : Observable<any>{
-    return this.http.get<any>(this.base_url + "/api/RedVoznje/GetLinije/" + routeType);
+  getLines() : Observable<any>{
+    return this.http.get<any>(this.base_url + "/api/LineEdit/Lines/");
   }
 
   getSelected(
-    timetableTypeId: number,
-    dayTypeId: number,
+    timetableTypeId: string,
+    dayTypeId: string,
     lineId: number
   ): Observable<any> {
     return Observable.create(observer => {
