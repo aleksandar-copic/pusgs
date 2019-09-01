@@ -33,6 +33,7 @@ import { StationEditHttpService } from './services/stationEdit.service';
 import { PriceListEditComponent } from './price-list-edit/price-list-edit.component';
 import { PriceListEditHttpService } from './services/priceListEdit.service';
 import { TimetableEditComponent } from './timetable-edit/timetable-edit.component';
+import {TimetableEditHttpService} from './services/timeTableEdit.service';
 
 const routes : Routes = [
   {path : "login", component: LoginComponent},
@@ -78,7 +79,7 @@ const routes : Routes = [
     AgmCoreModule.forRoot({apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'}),
     UiModule 
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi:true},AuthHttpService,CardVerificationHttpService, CenovnikHttpService,ProfilHttpService,RedVoznjeHttpService, VerificateUserHttpService, LineHttpService, StationEditHttpService, PriceListEditHttpService], //svi mogu da pristupe(injektuju servis)
+  providers: [{provide: HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi:true},AuthHttpService,CardVerificationHttpService, CenovnikHttpService,ProfilHttpService,RedVoznjeHttpService, VerificateUserHttpService, LineHttpService, StationEditHttpService, PriceListEditHttpService, TimetableEditHttpService], //svi mogu da pristupe(injektuju servis)
   bootstrap: [AppComponent]
 })
 export class AppModule { }

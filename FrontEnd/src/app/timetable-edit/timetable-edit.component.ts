@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TimetableEditHttpService } from '../services/timetableEdit.service';
+import { TimetableEditHttpService } from '../services/timeTableEdit.service';
 import { Timetable } from '../classes/timetable';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Line } from '../classes/line';
