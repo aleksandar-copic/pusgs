@@ -43,6 +43,10 @@ export class RedVoznjeHttpService {
   //     });
   //   }
 
+  getLines(routeType : number) : Observable<any>{
+    return this.http.get<any>(this.base_url + "/api/RedVoznje/GetLinije/" + routeType);
+  }
+
   getSelected(
     timetableTypeId: number,
     dayTypeId: number,

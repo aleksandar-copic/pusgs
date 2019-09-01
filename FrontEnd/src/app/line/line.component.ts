@@ -69,7 +69,7 @@ export class LineComponent implements OnInit {
   getSelectedStation(){
     this.http.getSelectedStation(this.selectedStation).subscribe((data) => {
       this.station = data;
-      this.stationForm.patchValue({ Name : data.Name, Address : data.Address, X : data.X, Y : data.Y })
+      this.stationForm.patchValue({ Name : data.Name, Address : data.Address })
       err => console.log(err);
     });
   }

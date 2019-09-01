@@ -77,6 +77,14 @@
             </div>
           </td>
         </tr> -->
+        
+        <label>
+          <p class="label-txt">Choose route:</p>
+            <select #lineName>
+              <option *ngFor="let line of lines" [value]="line">{{line}}</option>
+            </select>
+        </label> 
+
         <tr>
           <td></td>
           <td>

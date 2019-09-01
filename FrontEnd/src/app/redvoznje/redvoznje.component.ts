@@ -11,6 +11,7 @@ import { RedVoznjeHttpService } from "../services/redvoznje.service";
   templateUrl: "./redvoznje.component.html",
   styleUrls: ["./redvoznje.component.css"]
 })
+
 export class RedvoznjeComponent implements OnInit {
   redVoznjeInfo: RedVoznjeInfo = new RedVoznjeInfo();
   selectedTimetableType: TimetableType = new TimetableType();
@@ -22,6 +23,7 @@ export class RedvoznjeComponent implements OnInit {
   polasci: string;
   filteredLines: Line[] = [];
   timetable: Timetable = new Timetable();
+  lines : string [];
 
   constructor(private http: RedVoznjeHttpService) {}
 
@@ -38,6 +40,13 @@ export class RedvoznjeComponent implements OnInit {
       if (element.SerialNumber == this.selectedLine.SerialNumber) {
         this.filteredLines.push(element);
       }
+    });
+  }
+
+  ShowLines(routeType : number){
+    this.http.getLines(routeType).subscribe(data => {
+      console.log(data);
+      this.lines = data;
     });
   }
 
