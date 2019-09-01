@@ -46,7 +46,7 @@ const routes : Routes = [
   {path: "line", component: LineComponent},
   {path: "stationEdit", component: StationEditComponent},
   {path: "priceListEdit", component: PriceListEditComponent},
-  {path: "timeTableEdit", component: TimetableEditComponent},
+  {path: "timetableEdit", component: TimetableEditComponent},
   {path : "", component: HomeComponent, pathMatch:"full"},
   
   {path : "**", redirectTo: ""},
