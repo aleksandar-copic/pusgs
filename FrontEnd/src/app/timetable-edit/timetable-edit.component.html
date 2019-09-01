@@ -1,3 +1,4 @@
+<br>
 <label>ADDING NEW TIMETABLE</label>
 <form [formGroup]="timetableAdd" (ngSubmit)="TimetableAdd()">
     <label for="selectedType" class="col-sm-2 col-form-label">Tip: </label>
@@ -14,15 +15,17 @@
     </select>  
     <label for="Times" class="col-sm-2 col-form-label">Departure: </label>
     <input type="text" class="form-control" formControlName="Times" id="Times"> 
+    <br>
     <button type="submit" class="btn btn-secondary">Add</button>
 </form>
-
+<br><br><br>
 <label>EDIT TIMETABLE</label>
 <form [formGroup]="timetableEdit" (ngSubmit)="Izaberi()">
   <label for="selectedLine" class="col-sm-2 col-form-label">Line: </label>
   <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedTimetable">
       <option *ngFor="let timetable of allTimetables" [ngValue]="timetable">{{timetable.Id}}</option>
   </select>
+  &nbsp;
   <button type="submit" class="btn btn-secondary">Choose</button>
 </form>
 <form [formGroup]="timetableEdit" (ngSubmit)="Izmeni()">
@@ -39,8 +42,10 @@
     </select>  
     <label for="Times" class="col-sm-2 col-form-label">Departure: </label>
     <input type="text" class="form-control" formControlName="Times" id="Times"> 
+    <br>
     <button type="submit" class="btn btn-secondary">Edit</button>
 </form>
+<br>
 <form [formGroup]="timetableEdit" (ngSubmit)="Obrisi()">
   <button type="submit" class="btn btn-secondary">Delete</button>
 </form>
