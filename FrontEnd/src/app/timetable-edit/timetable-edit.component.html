@@ -1,0 +1,46 @@
+<label>ADDING NEW TIMETABLE</label>
+<form [formGroup]="timetableAdd" (ngSubmit)="TimetableAdd()">
+    <label for="selectedType" class="col-sm-2 col-form-label">Tip: </label>
+    <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedType">
+        <option *ngFor="let type of types">{{type}}</option>
+    </select> 
+    <label for="selectedDayType" class="col-sm-2 col-form-label">Day type: </label>
+    <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedDayType">
+        <option *ngFor="let dayType of dayTypes">{{dayType}}</option>
+    </select>  
+    <label for="selectedLine" class="col-sm-2 col-form-label">Line: </label>
+    <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedLine">
+        <option *ngFor="let line of allLines">{{line.SerialNumber}}</option>
+    </select>  
+    <label for="Times" class="col-sm-2 col-form-label">Departure: </label>
+    <input type="text" class="form-control" formControlName="Times" id="Times"> 
+    <button type="submit" class="btn btn-secondary">Add</button>
+</form>
+
+<label>EDIT TIMETABLE</label>
+<form [formGroup]="timetableEdit" (ngSubmit)="Izaberi()">
+  <label for="selectedLine" class="col-sm-2 col-form-label">Line: </label>
+  <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedTimetable">
+      <option *ngFor="let timetable of allTimetables" [ngValue]="timetable">{{timetable.Id}}</option>
+  </select>
+  <button type="submit" class="btn btn-secondary">Choose</button>
+</form>
+<form [formGroup]="timetableEdit" (ngSubmit)="Izmeni()">
+    <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedType">
+        <option *ngFor="let type of types">{{type}}</option>
+    </select> 
+    <label for="selectedDayType" class="col-sm-2 col-form-label">Day type: </label>
+    <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedDayType">
+        <option *ngFor="let dayType of dayTypes">{{dayType}}</option>
+    </select>  
+    <label for="selectedLine" class="col-sm-2 col-form-label">Line: </label>
+    <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedLine">
+        <option *ngFor="let line of allLines">{{line.SerialNumber}}</option>
+    </select>  
+    <label for="Times" class="col-sm-2 col-form-label">Departure: </label>
+    <input type="text" class="form-control" formControlName="Times" id="Times"> 
+    <button type="submit" class="btn btn-secondary">Edit</button>
+</form>
+<form [formGroup]="timetableEdit" (ngSubmit)="Obrisi()">
+  <button type="submit" class="btn btn-secondary">Delete</button>
+</form>

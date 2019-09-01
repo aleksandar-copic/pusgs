@@ -32,6 +32,7 @@ import { StationEditComponent } from './station-edit/station-edit.component';
 import { StationEditHttpService } from './services/stationEdit.service';
 import { PriceListEditComponent } from './price-list-edit/price-list-edit.component';
 import { PriceListEditHttpService } from './services/priceListEdit.service';
+import { TimetableEditComponent } from './timetable-edit/timetable-edit.component';
 
 const routes : Routes = [
   {path : "login", component: LoginComponent},
@@ -45,6 +46,7 @@ const routes : Routes = [
   {path: "line", component: LineComponent},
   {path: "stationEdit", component: StationEditComponent},
   {path: "priceListEdit", component: PriceListEditComponent},
+  {path: "timeTableEdit", component: TimetableEditComponent},
   {path : "", component: HomeComponent, pathMatch:"full"},
   
   {path : "**", redirectTo: ""},
@@ -64,7 +66,7 @@ const routes : Routes = [
     LineComponent,
     StationEditComponent,
     PriceListEditComponent,
-    //TimetableEditComponent,
+    TimetableEditComponent,
     
   ],
   imports: [
