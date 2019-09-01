@@ -26,10 +26,10 @@ export class CardVerificationComponent implements OnInit {
     console.log("penal: " + this.card.Id);
       this.http.getStatus(this.card.Id).subscribe(temp => {
       if(temp == "true"){
-        this.message = "Aktivan"
+        this.message = "Active"
       }
       else{
-        this.message = "Istekla"
+        this.message = "Expired"
       }
     });
   }

@@ -12,7 +12,6 @@ import { RegisterComponent } from './register/register.component';
 import { UiModule } from './ui/ui.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RedvoznjeComponent } from './redvoznje/redvoznje.component';
-//import { RedVoznjeHttpService } from 'src/services/redvoznje.service';
 import { CenovnikComponent } from './cenovnik/cenovnik.component';
 import { CenovnikHttpService } from './services/cenovnik.service';
 import { ProfilComponent } from './profil/profil.component';
@@ -20,36 +19,36 @@ import { ProfilHttpService } from './services/profil.service';
 import { CardVerificationComponent } from './card-verification/card-verification.component';
 import { CardVerificationHttpService } from './services/cardVerification.service';
 import { RedVoznjeHttpService } from './services/redvoznje.service';
-/*import { LineEditComponent } from './line-edit/line-edit.component';
-import { StationEditComponent } from './station-edit/station-edit.component';
-import { TimetableEditComponent } from './timetable-edit/timetable-edit.component';
-import { LineEditHttpService } from 'src/services/lineEdit.service';
-import { TimetableEditHttpService } from 'src/services/timetableEdit.service';
-import { StationEditHttpService } from 'src/services/stationEdit.service';
-*/
+import { AgmCoreModule } from '@agm/core';
 import { from } from 'rxjs';
 import { AuthGuardAdmin } from './services/http/auth.guard';
 import { AuthGuardController } from './services/http/auth2.guard';
 import { VerificateUserComponent } from './verificate-user/verificate-user.component';
 import { VerificateUserHttpService } from './services/verificateUser.service';
 import { LineComponent } from './line/line.component';
-import { PriceListEditComponent } from './price-list-edit/price-list-edit.component';
+import { LineHttpService } from './services/line.service';
+import { Line } from './classes/line';
 import { StationEditComponent } from './station-edit/station-edit.component';
-
+import { StationEditHttpService } from './services/stationEdit.service';
+import { PriceListEditComponent } from './price-list-edit/price-list-edit.component';
+import { PriceListEditHttpService } from './services/priceListEdit.service';
 
 const routes : Routes = [
   {path : "login", component: LoginComponent},
   {path : "home", component: HomeComponent},
   {path : "register", component: RegisterComponent},
-  {path : "redvoznje", component: RedvoznjeComponent},
-  {path : "cenovnik", component: CenovnikComponent},
-  {path : "profil", component: ProfilComponent},
+  {path : "timetables", component: RedvoznjeComponent},
+  {path : "pricelist", component: CenovnikComponent},
+  {path : "profile", component: ProfilComponent},
   {path: "cardVerification", component: CardVerificationComponent},
   {path: "verificateUser", component: VerificateUserComponent},
+  {path: "line", component: LineComponent},
+  {path: "stationEdit", component: StationEditComponent},
+  {path: "priceListEdit", component: PriceListEditComponent},
   {path : "", component: HomeComponent, pathMatch:"full"},
+  
   {path : "**", redirectTo: ""},
 ]
-
 
 @NgModule({
   declarations: [
@@ -63,11 +62,9 @@ const routes : Routes = [
     ProfilComponent,
     VerificateUserComponent,
     LineComponent,
-    PriceListEditComponent,
     StationEditComponent,
-    //LineEditComponent,
-    ///StationEditComponent,
-   // TimetableEditComponent,
+    PriceListEditComponent,
+    //TimetableEditComponent,
     
   ],
   imports: [
@@ -76,9 +73,10 @@ const routes : Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),  
     ReactiveFormsModule,
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'}),
     UiModule 
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi:true},AuthHttpService,CardVerificationHttpService, CenovnikHttpService,ProfilHttpService,RedVoznjeHttpService, VerificateUserHttpService], //svi mogu da pristupe(injektuju servis)
+  providers: [{provide: HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi:true},AuthHttpService,CardVerificationHttpService, CenovnikHttpService,ProfilHttpService,RedVoznjeHttpService, VerificateUserHttpService, LineHttpService, StationEditHttpService, PriceListEditHttpService], //svi mogu da pristupe(injektuju servis)
   bootstrap: [AppComponent]
 })
 export class AppModule { }

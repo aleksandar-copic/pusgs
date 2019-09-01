@@ -80,7 +80,7 @@ export class ProfilComponent implements OnInit {
       } 
       else {
         err => console.log("Greska pri izmeni profila");
-        this.message = "GresGreska pri izmeni profila";
+        this.message = "Greska pri izmeni profila";
       }
     });
   }

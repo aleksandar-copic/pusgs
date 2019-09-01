@@ -63,6 +63,10 @@ export class LineHttpService{
         });
     }
 
+    GetLinije() : Observable<any> {
+        return this.http.get<any>(this.base_url + "/api/LineEdit/Linijas");
+      }
+
     addLine(line: AddLine) : Observable<any>{
 
         return Observable.create((observer) => {
@@ -113,5 +117,7 @@ export class LineHttpService{
         });
      
     }
+
+   
 
 }

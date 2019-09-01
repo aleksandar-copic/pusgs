@@ -1,4 +1,5 @@
-<h1><b>ISPIS STANICE (BRISANJE I IZMENA SELEKTOVANIH STANICA) I ISPIS NJENIH LINIJA</b></h1>
+<br>
+<h1><b>SHOW/EDIT/DELETE STATIONS AND THEIR ROUTES</b></h1>
 <select [(ngModel)]="selectedStation">
   <option *ngFor="let t of stations">
     {{t}} 
@@ -9,11 +10,11 @@
 <br/>
 <form [formGroup]="stationForm" (ngSubmit)="UpdateStation()">
   <div class="form-group row">
-    <label for="Name" class="col-sm-2 col-form-label">Ime stanice:</label>
+    <label for="Name" class="col-sm-2 col-form-label">Station name:</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" formControlName="Name" id="Name"> 
     </div>
-    <label for="Address" class="col-sm-2 col-form-label">Adresa:</label>
+    <label for="Address" class="col-sm-2 col-form-label">Address:</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" formControlName="Address" id="Address"> 
     </div>
@@ -27,13 +28,13 @@
     </div>
   </div>
   <div class="col-sm-10">
-    <button type="submit" class="btn btn-secondary">Izmeni</button>
+    <button type="submit" class="btn btn-secondary">Edit</button>
     <br/>
   </div>
 </form>
 <br/>
 <br/>
-<button (click)="deleteSelectedStation()"> Obrisi stanicu </button>
+<button (click)="deleteSelectedStation()"> Delete station </button>
 <br/>
 <br/>
 <select [(ngModel)]="selectedLine">
@@ -42,7 +43,7 @@
   </option>
 </select>
 <br/>
-<button (click)="getSelectedLine()"> Prikazi liniju! </button>
+<button (click)="getSelectedLine()"> Show route </button>
 <br/>
 <form [formGroup]="lineForm" (ngSubmit)="IzmeniLiniju()">
   <div class="form-group row">
@@ -53,11 +54,11 @@
   </div>
 </form>
 
-<h1><b>DODAVANJE LINIJA</b></h1>
+<h1><b>ADD ROUTE</b></h1>
 <br/>
 <br/>
 
-<label>Ime stanice:</label>
+<label>Station name:</label>
 <div class="col-sm-10">
   <input type="text" [(ngModel)]="ime" name="ime" id="ime"> 
 </div>
@@ -79,8 +80,8 @@
   </option>
 </select>
 <br/>
-  <button (click)="addLine()"> Dodaj liniju u stanicu </button>
+  <button (click)="addLine()"> Add route on station </button>
 <br/>
 <br/>
-  <button (click)="AddStation()"> Dodaj Stanicu </button>
+  <button (click)="AddStation()"> Add station </button>
 <br/>

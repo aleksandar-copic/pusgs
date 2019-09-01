@@ -1,29 +1,19 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">JGSP - NOVI SAD </a>
+  <a class="navbar-brand" href="/">JGSP  </a>
   <div class="navbar-expand mr-auto">
     <div class="navbar-nav col-xs-6">
       <a
         *ngIf="!jwtIsAdmin() && !jwtIsController()"
         class="nav-item nav-link"
-        href="http://localhost:4200/redvoznje"
+        href="http://localhost:4200/timetables"
         >TIMETABLES</a
       >
-      <a
-        *ngIf="!jwtIsAdmin() && !jwtIsController()"
-        class="nav-item nav-link"
-        href="/"
-        >ROUTES</a
+      
       >
       <a
         *ngIf="!jwtIsAdmin() && !jwtIsController()"
         class="nav-item nav-link"
-        href="/"
-        >CURRENT VEHICLE LOCATIONS</a
-      >
-      <a
-        *ngIf="!jwtIsAdmin() && !jwtIsController()"
-        class="nav-item nav-link"
-        href="http://localhost:4200/cenovnik"
+        href="http://localhost:4200/pricelist"
         >PRICELIST</a
       >
       
@@ -36,7 +26,7 @@
       <a
         *ngIf="jwtIsAdmin()"
         class="nav-item nav-link"
-        href="http://localhost:4200/lineEdit"
+        href="http://localhost:4200/line"
         >EDIT ROUTES</a
       >
       <a
@@ -54,7 +44,7 @@
       <a
         *ngIf="jwtIsAdmin()"
         class="nav-item nav-link"
-        href="http://localhost:4200/"
+        href="http://localhost:4200/priceListEdit"
         >EDIT PRICELIST</a
       >
       <a
@@ -72,7 +62,7 @@
       <a
         *ngIf="jwtIsUndefined()"
         class="nav-item nav-link"
-        href="http://localhost:4200/profil"
+        href="http://localhost:4200/profile"
         >MY PROFILE</a
       >
       <a

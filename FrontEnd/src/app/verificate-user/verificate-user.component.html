@@ -6,19 +6,19 @@
   <br/>
   <br/>
   
-  <button (click)="PrikaziInfo()"> Prikazi informacije </button>
+  <button (click)="PrikaziInfo()"> Show info </button>
   
-  <h4>Profil selektovanog korisnika</h4>
+  <h4>User profile</h4>
   <div class="verificate-user-form" style="width: 400px;">
     <form [formGroup]="infoForm">
       <div class="form-group row">
-        <label for="Name" class="col-sm-2 col-form-label">Ime</label>
+        <label for="Name" class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" readonly="true" formControlName="Name" id="Name"> 
         </div>
       </div>
       <div class="form-group row">
-          <label for="Surname" class="col-sm-2 col-form-label">Prezime</label>
+          <label for="Surname" class="col-sm-2 col-form-label">Surname</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" readonly="true" formControlName="Surname" id="Surname"> 
           </div>
@@ -30,25 +30,25 @@
         </div>
       </div>
       <div class="form-group row">
-          <label for="PhoneNumber" class="col-sm-2 col-form-label">Telefon</label>
+          <label for="PhoneNumber" class="col-sm-2 col-form-label">Phone</label>
           <div class="col-sm-10">
             <input type="tel" class="form-control" readonly="true" formControlName="PhoneNumber" id="PhoneNumber"> 
           </div>
       </div>
       <div class="form-group row">
-          <label for="Date" class="col-sm-2 col-form-label">Datum rodjenja</label>
+          <label for="Date" class="col-sm-2 col-form-label">Birth date</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" readonly="true" formControlName="Date" id="Date"> 
           </div>
       </div>
       <div class="form-group row">
-          <label for="Address" class="col-sm-2 col-form-label">Adresa</label>
+          <label for="Address" class="col-sm-2 col-form-label">Address</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" readonly="true" formControlName="Address" id="Address"> 
           </div>
       </div>
       <div class="form-group row">
-          <label for="UserType" class="col-sm-2 col-form-label">Tip putnika</label>
+          <label for="UserType" class="col-sm-2 col-form-label">Type</label>
           <div class="col-sm-10">
             <input readonly="true" type="text" class="form-control" readonly="true" formControlName="UserType" id="UserType"> 
           </div>
@@ -60,7 +60,7 @@
           </div>
       </div>
       <div class="form-group row">
-          <label for="ImageUrl" class="col-sm-2 col-form-label">Dokument</label>
+          <label for="ImageUrl" class="col-sm-2 col-form-label">Document</label>
           <img [src]="imageToValidate" style="max-width: 200px; max-height: 200px;" class="btn-md img-fluid img-thumbnail"/>
           <br/>
       </div>
@@ -69,8 +69,8 @@
   
   <br/>
   <br/>
-  <button (click)="Prihvati()"> Prihvati zahtev </button>
+  <button (click)="Prihvati()"> Accept request </button>
   <br/>
-  <button (click)="Odbij()"> Odbij zahtev </button>
+  <button (click)="Odbij()"> Deny </button>
   <br/>
   {{odluka}}

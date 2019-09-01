@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Injectable()
-export class RedVoznjeHttpService{
-    base_url = "http://localhost:52295"
-    constructor(private http: HttpClient){ }
+export class RedVoznjeHttpService {
+  base_url = "http://localhost:52295";
+  constructor(private http: HttpClient) {}
 
-    /*redVoznjeVremena(username: string, password: string) : Observable<any>{
+  /*redVoznjeVremena(username: string, password: string) : Observable<any>{
 
         return Observable.create((observer) => {
 
@@ -32,22 +32,63 @@ export class RedVoznjeHttpService{
      
     }*/
 
-    getAll() : Observable<any>{
-        return Observable.create((observer) => {    
-            this.http.get<any>(this.base_url + "/api/RedVoznje/RedVoznjiInfo").subscribe(data =>{
-                observer.next(data);
-                observer.complete();     
-            })             
-        });
-    }
+  //   getAll(): Observable<any> {
+  //     return Observable.create(observer => {
+  //       this.http
+  //         .get<any>(this.base_url + "/api/RedVoznje/")
+  //         .subscribe(data => {
+  //           observer.next(data);
+  //           observer.complete();
+  //         });
+  //     });
+  //   }
 
-    getSelected(timetableTypeId: number, dayTypeId: number, lineId: number) : Observable<any>{
-        return Observable.create((observer) => {    
-            this.http.get<any>(this.base_url + "/api/RedVoznje/IspisReda"+ `/${timetableTypeId}` + `/${dayTypeId}`+ `/${lineId}`).subscribe(data =>{
-                observer.next(data);
-                observer.complete();     
-            })             
+  getSelected(
+    timetableTypeId: number,
+    dayTypeId: number,
+    lineId: number
+  ): Observable<any> {
+    return Observable.create(observer => {
+      this.http
+        .get<any>(
+          this.base_url +
+            "/api/RedVoznje/IspisReda" +
+            `/${timetableTypeId}` +
+            `/${dayTypeId}` +
+            `/${lineId}`
+        )
+        .subscribe(data => {
+          observer.next(data);
+          observer.complete();
         });
-    }
-
+    });
+  }
+  GetPolasci(
+    selectedLinija: number,
+    selectedDan: number,
+    selectedTeritorija: number
+  ): Observable<any> {
+    return Observable.create(observer => {
+      let data = selectedLinija;
+      let httpOptions = {
+        headers: {
+          "Content-type": "application/json"
+        }
+      };
+      this.http
+        .get<any>(
+          this.base_url +
+            "/api/RedVoznje/GetPolasci/" +
+            selectedLinija +
+            "/" +
+            selectedDan +
+            "/" +
+            selectedTeritorija
+        )
+        .subscribe(data => {
+          observer.next(data);
+          observer.complete();
+        });
+    });
+  }
 }

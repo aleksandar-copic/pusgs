@@ -1,22 +1,22 @@
-<h1><b>ISPIS (BRISANJE) LINIJE I PRIKAZ NJENIH STANICA</b></h1>
+<h1><b>SHOW / DELETE ROUTE AND SHOW ROUTES STATIONS</b></h1>
 <select [(ngModel)]="selectedLine">
   <option *ngFor="let t of lines">
     {{t}} 
   </option>
 </select>
 <br/>
-<button (click)="getSelectedLine()"> Prikazi liniju! </button>
+<button (click)="getSelectedLine()"> Show route </button>
 <br/>
 <div class="profile-form" style="width: 400px;">
   <form [formGroup]="lineForm">
     <div class="form-group row">
-      <label for="SerialNumber" class="col-sm-2 col-form-label">Redni broj</label>
+      <label for="SerialNumber" class="col-sm-2 col-form-label">S/N</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" formControlName="SerialNumber" id="SerialNumber"> 
       </div>
     </div>
   </form>
-  <button (click)="deleteSelectedLine()"> Obrisi liniju </button>
+  <button (click)="deleteSelectedLine()"> Delete route </button>
   <br/>
   <select [(ngModel)]="selectedStation">
     <option *ngFor="let t of stations">
@@ -24,15 +24,15 @@
     </option>
   </select>
   <br/>
-  <button (click)="getSelectedStation()"> Prikazi stanicu! </button>
+  <button (click)="getSelectedStation()"> Show station </button>
   <br/>
   <form [formGroup]="stationForm">
     <div class="form-group row">
-      <label for="Name" class="col-sm-2 col-form-label">Ime stanice:</label>
+      <label for="Name" class="col-sm-2 col-form-label">Station name:</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" formControlName="Name" id="Name"> 
       </div>
-      <label for="Address" class="col-sm-2 col-form-label">Adresa:</label>
+      <label for="Address" class="col-sm-2 col-form-label">Address:</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" formControlName="Address" id="Address"> 
       </div>
@@ -49,11 +49,11 @@
 </div>
 <br/>
 <br/>
-<h1><b>DODAVANJE LINIJA</b></h1>
+<h1><b>ADD ROUTE</b></h1>
 <br/>
 <br/>
 
-<label>Redni broj:</label>
+<label>S/N:</label>
 <!-- <div class="col-sm-10">
   <input type="text" [(ngModel)]="serNum" name="serNum" id="serNum"> 
 </div> -->
@@ -68,8 +68,8 @@
   </option>
 </select>
 <br/>
-  <button (click)="addStation()"> Dodaj stanicu u liniju </button>
+  <button (click)="addStation()"> Add station </button>
 <br/>
 <br/>
-  <button (click)="AddLine()"> Dodaj Liniju </button>
+  <button (click)="AddLine()"> Add route </button>
 <br/>
