@@ -100,12 +100,13 @@
     <br>
     <div class="col-sm-10">
       <button type="submit" class="btn btn-secondary">Edit</button>
-      &nbsp
+      &nbsp;
       {{ message }}
     </div>
     <br>
+
     <div *ngIf="!jwtIsAdmin() && !jwtIsController()" class="form-group row">
-      <label for="ImageUrl" class="col-sm-2 col-form-label">Document</label>
+      <label for="ImageUrl" class="col-sm-2 col-form-label">Document</label> &nbsp; &nbsp;
       <div class="col-sm-10">
         <input
           type="text"

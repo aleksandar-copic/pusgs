@@ -6,14 +6,16 @@
   </option>
 </select>
 <br/>
-<button (click)="getSelectedStation()"> Prikazi Stanicu! </button>
+<button class="btn btn-secondary" (click)="getSelectedStation()"> Prikazi Stanicu! </button>
 <br/>
+<br>
 <form [formGroup]="stationForm" (ngSubmit)="UpdateStation()">
   <div class="form-group row">
     <label for="Name" class="col-sm-2 col-form-label">Station name:</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" formControlName="Name" id="Name"> 
     </div>
+    <br><br>
     <label for="Address" class="col-sm-2 col-form-label">Address:</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" formControlName="Address" id="Address"> 
@@ -26,7 +28,7 @@
 </form>
 <br/>
 <br/>
-<button (click)="deleteSelectedStation()"> Delete station </button>
+<button class="btn btn-secondary" (click)="deleteSelectedStation()"> Delete station </button>
 <br/>
 <br/>
 <select [(ngModel)]="selectedLine">
@@ -35,8 +37,8 @@
   </option>
 </select>
 <br/>
-<button (click)="getSelectedLine()"> Show route </button>
-<br/>
+<button class="btn btn-secondary" (click)="getSelectedLine()"> Show route </button>
+<br/><br>
 <form [formGroup]="lineForm" (ngSubmit)="IzmeniLiniju()">
   <div class="form-group row">
     <label for="SerialNumber" class="col-sm-2 col-form-label">S/N</label>
@@ -54,7 +56,7 @@
 <div class="col-sm-10">
   <input type="text" [(ngModel)]="ime" name="ime" id="ime"> 
 </div>
-<label>Adresa:</label>
+<label>Address:</label>
 <div class="col-sm-10">
   <input type="text" [(ngModel)]="adresa" name="adresa" id="adresa"> 
 </div>
@@ -65,8 +67,8 @@
   </option>
 </select>
 <br/>
-  <button (click)="addLine()"> Add route on station </button>
+  <button class="btn btn-secondary" (click)="addLine()"> Add route on station </button>
 <br/>
 <br/>
-  <button (click)="AddStation()"> Add station </button>
-<br/>
+  <button class="btn btn-secondary" (click)="AddStation()"> Add station </button>
+<br/><br>
