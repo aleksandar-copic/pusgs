@@ -36,7 +36,7 @@ namespace WebApp.Controllers
         // GET: api/Profil/User
         [AllowAnonymous]
         [ResponseType(typeof(List<ApplicationUser>))]
-        [Route("api/Profil/User")]
+        [Route("api/Profile/User")]
         public IHttpActionResult GetUser()
         {
             ApplicationUser ret = new ApplicationUser();
@@ -59,7 +59,7 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        [Route("api/Profil/UplaodPicture/{username}")]
+        [Route("api/Profile/UplaodPicture/{username}")]
         [AllowAnonymous]
         public IHttpActionResult UploadImage(string username)
         {
@@ -135,7 +135,7 @@ namespace WebApp.Controllers
         [HttpPost]
         [AllowAnonymous]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("api/Profil/UpdateUser")]
+        [Route("api/Profile/UpdateUser")]
         public IHttpActionResult EditUserInfo(RegisterBindingModel model)
         {
 

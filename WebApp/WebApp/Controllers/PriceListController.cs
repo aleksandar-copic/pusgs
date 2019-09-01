@@ -172,20 +172,19 @@ namespace WebApp.Controllers
                 return StatusCode(HttpStatusCode.BadRequest);
             }
 
-            SendEmail("JGSP", "stefomeister@gmail.com", user.Email, "JGSP, kupovina karte.", $"Salo pederu");
+            if(user.Email != null)
+                SendEmail("JGSP", "jgspns71@gmail.com", user.Email, "JGSP, kupovina karte.", $"Salo pederu");
             return Ok("uspesno");
         }
 
         private void SendEmail(string sendername, string sender, string recipient, string subject, string body)
         {
-            // SMTP server,port,username,password should be obtained from C:\cornerstone\CFMLocal.txt (line 2?)
-            SmtpClient smtpClient = new SmtpClient("smtp.mailtrap.io", 2525)
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587)
             {
-                // Milan's mail trap free SMTP credentials : u: "3af75f9040edca", p: "bc2ed058a47d71"  | host: "smtp.mailtrap.io", 2525
                 Credentials = new System.Net.NetworkCredential()
                 {
-                    UserName = "3af75f9040edca",
-                    Password = "bc2ed058a47d71"
+                    UserName = "jgspns71",
+                    Password = "jgspnovisad1!"
                 },
 
                 EnableSsl = true
@@ -200,6 +199,37 @@ namespace WebApp.Controllers
             };
 
             smtpClient.Send(mailMessage);
+        }
+
+        // PriceList edit api
+        [Route("api/ticketPriceEdit/ticketPriceEditGetPrice/{ticketTypeId}")]
+        [HttpGet]
+        public IHttpActionResult GetPrice(int ticketTypeId)
+        {
+            var price = Db.ticketPriceRepository.Find(x => x.TicketTypeId == ticketTypeId).FirstOrDefault().Price;
+
+            return Ok(price);
+        }
+
+        [HttpPost]
+        [Route("api/ticketPriceEdit/UpdateTicketPrice/{ticketTypeId}/{price}")]
+        public IHttpActionResult UpdateTimetable(int ticketTypeId, int price)
+        {
+            TicketPrice ticket = new TicketPrice();
+            ticket = Db.ticketPriceRepository.Find(x => x.TicketTypeId.Equals(ticketTypeId)).FirstOrDefault();
+            ticket.Price = price;
+            db.Entry(ticket).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                return StatusCode(HttpStatusCode.BadRequest);
+            }
+
+            return Ok("uspesno");
         }
 
         private bool KartaExists(int id)
