@@ -32,10 +32,10 @@ namespace WebApp.Controllers
             this.Db = db;
         }
 
-        // GET: api/Cenovnik/UserType/{loggedUser}
+        // GET: api/PriceList/UserType/{loggedUser}
         [AllowAnonymous]
         [ResponseType(typeof(string))]
-        [Route("api/Cenovnik/UserType")]
+        [Route("api/PriceList/UserType")]
         public IHttpActionResult GetUserType()
         {
             var userStore = new UserStore<ApplicationUser>(db);
@@ -62,10 +62,10 @@ namespace WebApp.Controllers
             return Ok(type);
         }
 
-        // GET: api/Cenovnik/UserType/{loggedUser}
+        // GET: api/PriceList/UserType/{loggedUser}
         [AllowAnonymous]
         [ResponseType(typeof(double))]
-        [Route("api/Cenovnik/Cene/{tipKarte}/{tipKorisnika}")]
+        [Route("api/PriceList/Prices/{tipKarte}/{tipKorisnika}")]
         public IHttpActionResult GetPrice(string tipKarte, string tipKorisnika)
         {
             int s = Db.ticketTypeRepository.Find(x => x.Name.Equals(tipKarte)).FirstOrDefault().Id;
@@ -85,7 +85,7 @@ namespace WebApp.Controllers
 
         // POST api/Cenovnik/KupiKartu
         [AllowAnonymous]
-        [Route("api/Cenovnik/KupiKartu")]
+        [Route("api/PriceList/BuyTicket")]
         public IHttpActionResult KupiKartu(TicketPurchaseBindingModel ticketPurchase)
         {
             if (ticketPurchase.Price == 0)
