@@ -10,7 +10,7 @@ export class ProfilHttpService{
 
     getUser() : Observable<any>{
         return Observable.create((observer) => {    
-            this.http.get<any>(this.base_url + "/api/Profil/User").subscribe(data =>{
+            this.http.get<any>(this.base_url + "/api/Profile/User").subscribe(data =>{
                 observer.next(data);
                 observer.complete();     
             })             
@@ -26,7 +26,7 @@ export class ProfilHttpService{
                     "Content-type": "application/json"
                 }
             }
-            this.http.post<any>(this.base_url + "/api/Profil/UpdateUser",data,httpOptions).subscribe(data => {
+            this.http.post<any>(this.base_url + "/api/Profile/UpdateUser",data,httpOptions).subscribe(data => {
                 observer.next("uspesno");
                 observer.complete();
             },

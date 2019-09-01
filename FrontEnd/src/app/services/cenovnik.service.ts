@@ -10,7 +10,7 @@ export class CenovnikHttpService{
 
     getUserType() : Observable<any>{
         return Observable.create((observer) => {    
-            this.http.get<any>(this.base_url + "/api/Cenovnik/UserType").subscribe(data =>{
+            this.http.get<any>(this.base_url + "/api/PriceList/UserType").subscribe(data =>{
                 observer.next(data);
                 observer.complete();     
             })             
@@ -19,7 +19,7 @@ export class CenovnikHttpService{
 
     getCene(tipKarte: string,tipKorisnika: string) : Observable<any>{
         return Observable.create((observer) => {    
-            this.http.get<any>(this.base_url + "/api/Cenovnik/Cene/" + tipKarte + "/" + tipKorisnika).subscribe(data =>{
+            this.http.get<any>(this.base_url + "/api/PriceList/Cene/" + tipKarte + "/" + tipKorisnika).subscribe(data =>{
                 observer.next(data);
                 observer.complete();     
             })             
@@ -35,7 +35,7 @@ export class CenovnikHttpService{
                     "Content-type": "application/json"
                 }
             }
-            this.http.post<any>(this.base_url + "/api/Cenovnik/KupiKartu",data,httpOptions).subscribe(data => {
+            this.http.post<any>(this.base_url + "/api/PriceList/KupiKartu",data,httpOptions).subscribe(data => {
                 observer.next("uspesno");
                 observer.complete();
             },

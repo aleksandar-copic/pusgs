@@ -52,7 +52,7 @@ export class RedVoznjeHttpService {
       this.http
         .get<any>(
           this.base_url +
-            "/api/RedVoznje/IspisReda" +
+            "/api/TimeTable/GetTables" +
             `/${timetableTypeId}` +
             `/${dayTypeId}` +
             `/${lineId}`
@@ -78,7 +78,7 @@ export class RedVoznjeHttpService {
       this.http
         .get<any>(
           this.base_url +
-            "/api/RedVoznje/GetPolasci/" +
+            "/api/TimeTable/GetTimes/" +
             selectedLinija +
             "/" +
             selectedDan +
