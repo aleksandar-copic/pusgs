@@ -37,13 +37,8 @@ namespace WebApp.Controllers
 
         [ResponseType(typeof(string))]
         [Route("api/TimeTable/GetTables/{selectedTeritory}/{selectedDay}/{selectedLine}")]
-        public IHttpActionResult GetPolasci(string selectedTeritory, string selectedDay, int selectedLine)
+        public IHttpActionResult GetPolasci(int selectedTeritory, int selectedDay, int selectedLine)
         {
-            //List<DayType> dani = new List<DayType>();
-            //DayType ret1 = new DayType();
-            //dani = Db.dayTypeRepository.GetAll().ToList();      //preuzeti dani-radni dan,subota,nedelja
-            //int selectedDans = Int32.Parse(selectedDan);
-            // List<TimeTable> lines = new List<TimeTable>();    //raspored-sve je ovde uklopljeno
             TimeTable ret2 = new TimeTable();
             var lines = Db.timeTableRepository.GetAll().ToList();
 
@@ -54,7 +49,7 @@ namespace WebApp.Controllers
 
             foreach (TimeTable ttt in lines)
             {
-                if (ttt.TimetableType == selectedTeritory && ttt.DayType == selectedDay && ttt.BusLineId == selectedLine) {
+                if (ttt.TimetableTypeId == selectedTeritory && ttt.DayTypeId == selectedDay && ttt.BusLineId == selectedLine) {
                     ret = ttt.Times;
                     break;
                 }

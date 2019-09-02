@@ -23,6 +23,9 @@ export class RegisterComponent implements OnInit {
     ImageUrl: [''],
     Date: ['', Validators.required]
   });
+
+  tipKorisnika: string
+  tipoviKorisnika: string[] = ["Đak", "Penzioner", "Regularan"]
   
   selectedFile: File = null;
   onFileSelected(event) {
@@ -36,6 +39,24 @@ export class RegisterComponent implements OnInit {
 
   register(){
     let regModel: User = this.registacijaForm.value;
+
+    console.log(this.tipKorisnika);
+    regModel.TypeId = this.tipKorisnika;
+    if(this.tipKorisnika == "Đak")
+    {
+      regModel.TypeId = "1"
+    }
+    else if(this.tipKorisnika == "Penzioner")
+    {
+      regModel.TypeId = "2"
+
+    }
+    else 
+    {
+      regModel.TypeId = "3"
+
+    }
+
     let formData: FormData = new FormData();
 
     if (this.selectedFile != null) {

@@ -11,7 +11,7 @@ export class VerificateUserHttpService
     getUsers() : Observable<any>{
         return Observable.create((observer) => {    
         console.log("boske2")
-            this.http.get<any>(this.base_url + "/api/VerificateUser/ReturnUsers").subscribe(data =>{
+            this.http.get<any>(this.base_url + "/api/Verification/ReturnUsers").subscribe(data =>{
                 observer.next(data);
                 observer.complete();     
             })             
@@ -21,7 +21,7 @@ export class VerificateUserHttpService
 
     getSelectedUser(id: string) : Observable<any>{
         return Observable.create((observer) => {  
-            this.http.get<any>(this.base_url + "/api/VerificateUser/SelectedUser/" + id).subscribe(data =>{
+            this.http.get<any>(this.base_url + "/api/Verification/SelectedUser/" + id).subscribe(data =>{
                 observer.next(data);
                 observer.complete();     
             })             
@@ -30,7 +30,7 @@ export class VerificateUserHttpService
 
     downloadImage(id : string) : Observable<any> {
         return Observable.create((observer) => {  
-            this.http.get<any>(this.base_url + "/api/VerificateUser/DownloadPicture/" + id).subscribe(data =>{
+            this.http.get<any>(this.base_url + "/api/Verification/DownloadPicture/" + id).subscribe(data =>{
                 observer.next(data);
                 observer.complete();     
             })             
@@ -39,7 +39,7 @@ export class VerificateUserHttpService
 
     odluka(id : string,odluka: string) : Observable<any> {
         return Observable.create((observer) => {  
-            this.http.get<any>(this.base_url + "/api/VerificateUser/Odluka/" + id + "/"+ odluka).subscribe(data =>{
+            this.http.get<any>(this.base_url + "/api/Verification/Odluka/" + id + "/"+ odluka).subscribe(data =>{
                 observer.next(data);
                 observer.complete();     
             })             

@@ -53,7 +53,8 @@ export class RedvoznjeComponent implements OnInit {
       .getSelected(
         this.selectedTimetableType,
         this.selectedDayType,
-        1
+        this.selectedLinija
+        //1
         // this.selectedLine ----- POPRAVITI
       )
       .subscribe(data => {

@@ -13,6 +13,11 @@
         <p><span class="fa fa-user"></span><input Placeholder="Enter Email" type="email" formControlName="Email" required></p>
         <p><span class="fa fa-user"></span><input Placeholder="Enter Address" type="email" formControlName="Address" required></p>
         <p><span class="fa fa-user"></span><input Placeholder="Enter Phone Number" type="text" formControlName="PhoneNumber" required></p>
+        <select [(ngModel)]="tipKorisnika" [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let t of tipoviKorisnika">
+          {{t}} 
+        </option>
+      </select>
         <p>Birth Date:</p>
         <p><span class="fa fa-user"></span><input Placeholder="Enter Date" type="date" formControlName="Date" required></p>      
         <div class="form-group row">

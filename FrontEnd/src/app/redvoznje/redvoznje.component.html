@@ -14,8 +14,8 @@
               name="rv"
               [(ngModel)]="selectedTimetableType"
             >
-              <option value="Urban" selected="">Urban</option>
-              <option value="Suburban">Suburban</option>
+              <option value="1" selected="">Urban</option>
+              <option value="2">Suburban</option>
             </select>
           </td>
         </tr>
@@ -32,9 +32,9 @@
               name="dan"
               [(ngModel)]="selectedDayType"
             >
-              <option value="WorkDay">Work day</option>
-              <option value="Saturday" selected="">Saturday</option>
-              <option value="Sunday">Sunday</option>
+              <option value="1">Work day</option>
+              <option value="2" selected="">Saturday</option>
+              <option value="3">Sunday</option>
             </select>
           </td>
         </tr>
@@ -80,11 +80,15 @@
         
         <label>
           <p class="label-txt">Choose route:</p>
-            <select #lineName>
+            <select name="lines" [(ngModel)]="selectedLinija">
               <option *ngFor="let line of lines" [value]="line">{{line}}</option>
             </select>
         </label> 
-
+<!--<option *ngFor="let title of titleArray" 
+    [value]="title.Value" 
+    [attr.selected]="passenger.Title==title.Text ? true : null">
+  {{title.Text}}
+</option>-->
         <tr>
           <td></td>
           <td>

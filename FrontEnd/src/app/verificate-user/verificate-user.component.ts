@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VerificateUserHttpService } from '../services/verificateUser.service';
 import { FormBuilder } from '@angular/forms';
 import { User } from '../classes/user';
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-verificate-user',
@@ -81,11 +82,12 @@ export class VerificateUserComponent implements OnInit {
       if (data.VerificateAcc == "0") {
         this.approved = "Na cekanju";
       } 
-      else if(data.Verificate == "1"){
+      else if(data.VerificateAcc == "1"){
         this.approved = "Odobren";
       }
       else
       {
+        console.log(data.Verificate);
         this.approved = "Nije odobren";
       }
 
