@@ -76,7 +76,7 @@ export class LineComponent implements OnInit {
 
   deleteSelectedLine(){
     this.http.deleteSelectedLine(this.selectedLine).subscribe((data) => {
-      if(data == "uspesno")
+      if(data == "success")
       {
         alert("Uspesno obrisana linija");
         this.router.navigate(["/line"]);

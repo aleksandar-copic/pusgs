@@ -78,7 +78,7 @@ export class StationEditComponent implements OnInit {
 
   deleteSelectedStation(){
     this.http.deleteSelectedStation(this.idStation).subscribe((data) => {
-      if(data == "uspesno")
+      if(data == "success")
       {
         alert("Uspesno obrisana linija");
         this.router.navigate(["/stationEdit"]);

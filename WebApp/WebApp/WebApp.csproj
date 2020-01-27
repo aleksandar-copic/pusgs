@@ -254,6 +254,7 @@
     <Compile Include="Controllers\LineController.cs" />
     <Compile Include="Controllers\PriceListController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\StationController.cs" />
     <Compile Include="Controllers\TimeTableController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VerificationController.cs" />
@@ -283,6 +284,10 @@
     <Compile Include="Migrations\201909011250247_FIFTH.cs" />
     <Compile Include="Migrations\201909011250247_FIFTH.Designer.cs">
       <DependentUpon>201909011250247_FIFTH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001271945210_station-edit.cs" />
+    <Compile Include="Migrations\202001271945210_station-edit.Designer.cs">
+      <DependentUpon>202001271945210_station-edit.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -436,6 +441,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909011250247_FIFTH.resx">
       <DependentUpon>201909011250247_FIFTH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001271945210_station-edit.resx">
+      <DependentUpon>202001271945210_station-edit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
