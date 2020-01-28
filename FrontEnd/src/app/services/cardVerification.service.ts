@@ -10,7 +10,7 @@ export class CardVerificationHttpService{
     getStatus(i: number) : Observable<any>{
         return Observable.create((observer) => {    
         console.log("boske2" + i)
-            this.http.get<any>(this.base_url + "/api/CardVerification/Check/" + i).subscribe(data =>{
+            this.http.get<any>(this.base_url + "/api/TicketVerification/Check/" + i).subscribe(data =>{
                 observer.next(data);
                 observer.complete();     
             })             

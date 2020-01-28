@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.IO;
@@ -29,7 +28,6 @@ namespace WebApp.Controllers
         public VerificationController(IUnitOfWork db)
         {
             this.Db = db;
-
         }
 
         [AllowAnonymous]
@@ -37,21 +35,14 @@ namespace WebApp.Controllers
         [Route("api/Verification/ReturnUsers")]
         public IHttpActionResult GetUsers()
         {
-            //ApplicationUser ret = new ApplicationUser();
-            List<ApplicationUser> ret = new List<ApplicationUser>();
+            //var ret = new List<ApplicationUser>();
 
             var userStore = new UserStore<ApplicationUser>(db);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
-            List<ApplicationUser> list = userManager.Users.ToList();
+            var list = userManager.Users.ToList();
 
-            foreach (ApplicationUser a in list)
-            {
-                if (a.VerificateAcc == 0)
-                {
-                    ret.Add(a);
-                }
-            }
+            var ret = (from u in list where u.VerificateAcc == 0 select u).ToList();
 
             return Ok(ret);
         }
@@ -62,80 +53,55 @@ namespace WebApp.Controllers
         [Route("api/Verification/SelectedUser/{id}")]
         public IHttpActionResult GetSelectedUser(string id)
         {
-            ApplicationUser ret = new ApplicationUser();
-
             var userStore = new UserStore<ApplicationUser>(db);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
-            List<ApplicationUser> list = userManager.Users.ToList();
+            var list = userManager.Users.ToList();
 
-            foreach (ApplicationUser a in list)
-            {
-                if (a.Id.Equals(id))
-                {
-                    ret = a;
-                    break;
-                }
-            }
+            var ret = list.Find(_ => _.Id == id);
 
-            if (ret != null)
-                return Ok(ret);
-            else
+            if (ret == null)
                 return StatusCode(HttpStatusCode.BadRequest);
+
+            return Ok(ret);
         }
 
         [HttpGet]
         [Route("api/Verification/DownloadPicture/{id}")]
         public IHttpActionResult DownloadPicture(string id)
         {
-
-            ApplicationUser ret = new ApplicationUser();
-
             var userStore = new UserStore<ApplicationUser>(db);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
-            List<ApplicationUser> list = userManager.Users.ToList();
+            var list = userManager.Users.ToList();
 
-            foreach (ApplicationUser a in list)
-            {
-                if (a.Id.Equals(id))
-                {
-                    ret = a;
-                    break;
-                }
-            }
+            var ret = list.Find(_ => _.Id == id);
 
             if (ret == null)
-            {
                 return BadRequest("User doesn't exists.");
-            }
 
             if (ret.ImageUrl == null)
-            {
                 return BadRequest("Picture doesn't exists.");
-            }
 
 
             var filePath = HttpContext.Current.Server.MapPath("~/UploadFile/" + ret.ImageUrl);
 
-            FileInfo fileInfo = new FileInfo(filePath);
-            string type = fileInfo.Extension.Split('.')[1];
-            byte[] data = new byte[fileInfo.Length];
+            var fileInfo = new FileInfo(filePath);
+            var type = fileInfo.Extension.Split('.')[1];
+            var data = new byte[fileInfo.Length];
 
-            HttpResponseMessage response = new HttpResponseMessage();
+            var response = new HttpResponseMessage();
             using (FileStream fs = fileInfo.OpenRead())
             {
                 fs.Read(data, 0, data.Length);
                 response.StatusCode = HttpStatusCode.OK;
                 response.Content = new ByteArrayContent(data);
                 response.Content.Headers.ContentLength = data.Length;
-
             }
 
             response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/png");
 
             return Ok(data);
-
         }
 
         // GET: api/UserVerification/Users
@@ -145,33 +111,22 @@ namespace WebApp.Controllers
         [Route("api/Verification/Odluka/{id}/{odluka}")]
         public IHttpActionResult Odluka(string id, string odluka)
         {
-            ApplicationUser ret = new ApplicationUser();
-
             var userStore = new UserStore<ApplicationUser>(db);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
-            List<ApplicationUser> list = userManager.Users.ToList();
+            var list = userManager.Users.ToList();
 
-            foreach (ApplicationUser a in list)
-            {
-                if (a.UserName.Equals(id))
-                {
-                    ret = a;
-                    break;
-                }
-            }
+            var ret = list.Find(_ => _.UserName == id);
 
             if (ret == null)
                 return StatusCode(HttpStatusCode.BadRequest);
 
             if (odluka.Equals("prihvati"))
-            {
                 ret.VerificateAcc = 1;
-            }
             else if (odluka.Equals("odbij"))
-            {
                 ret.VerificateAcc = 2;
-            }
+            else
+                ret.VerificateAcc = 0;
 
             db.Entry(ret).State = EntityState.Modified;
 
@@ -185,6 +140,33 @@ namespace WebApp.Controllers
             }
 
             return Ok(ret);
+        }
+
+        // GET: api/CardVerification/Check/{id}
+        [Route("api/TicketVerification/Check/{id}")]
+        [HttpGet]
+        [ResponseType(typeof(string))]
+        [Authorize(Roles = "Controller")]
+        public IHttpActionResult GetCard(int id)
+        {
+            Ticket ticket = db.Ticket.FirstOrDefault(x => x.Id.Equals(id));
+
+            if (ticket == null)
+                return StatusCode(HttpStatusCode.BadRequest);
+
+            var priceList = db.Pricelist.FirstOrDefault(x => x.Id.Equals(ticket.PricelistId));
+
+            if (priceList == null)
+                return StatusCode(HttpStatusCode.BadRequest);
+
+            var validFrom = DateTime.Parse(priceList.From);
+            var validTo = DateTime.Parse(priceList.To);
+            var now = DateTime.Now;
+
+            if (validFrom < now && now < validTo)
+                return Ok("true");
+
+            return Ok("false");
         }
 
         protected override void Dispose(bool disposing)

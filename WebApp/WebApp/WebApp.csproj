@@ -255,6 +255,7 @@
     <Compile Include="Controllers\PriceListController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\StationController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\TimeTableController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VerificationController.cs" />
