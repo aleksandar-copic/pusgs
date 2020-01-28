@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Station } from '../classes/station';
 import { AddStation } from '../classes/addStation';
+import { Line } from '../classes/line'
 
 @Injectable()
 export class StationEditHttpService{

@@ -32,6 +32,8 @@ export class StationEditComponent implements OnInit {
   idStation: number
   stationUpdate: Station = new Station()
 
+  line: Line = new Line()
+
   LinesAdd: Array<string> = [];
   linesToChose: Array<string> = [];
   lineAddSelected: string
@@ -59,18 +61,23 @@ export class StationEditComponent implements OnInit {
     this.http.getStation(this.selectedStation).subscribe((data) => {
       this.idStation = data.Id;
       this.stationForm.patchValue({ Name : data.Name, Address : data.Address })
+      this.http.getLines(this.selectedStation).subscribe((data) => {
+        this.lines = data;
+        this.selectedLine = this.lines[0];
+        err => console.log(err);
+      })
       err => console.log(err);
     });
-    this.http.getLines(this.selectedStation).subscribe((data) => {
-      this.lines = data;
-      this.selectedLine = this.lines[0];
-      err => console.log(err);
-    });
+    // this.http.getLines(this.selectedStation).subscribe((data) => {
+      // this.lines = data;
+      // this.selectedLine = this.lines[0];
+      // err => console.log(err);
+    // });
   }
 
   getSelectedLine(){
     this.http.getSelectedLine(this.selectedLine).subscribe((data) => {
-      this.station = data;
+      this.line = data;
       this.lineForm.patchValue({ SerialNumber : data.SerialNumber })
       err => console.log(err);
     });
@@ -112,6 +119,7 @@ export class StationEditComponent implements OnInit {
 
   addLine()
   {
+    this.temp = true;
     this.LinesAdd.forEach(element => {
       if(element == this.lineAddSelected){
         this.temp = false;
@@ -130,7 +138,7 @@ export class StationEditComponent implements OnInit {
   }
 
   AddStation(){
-    this.newStation.LinesAdd = this.LinesAdd;
+    this.newStation.Lines = this.LinesAdd;
     this.newStation.Name = this.ime;
     this.newStation.Address = this.adresa;
     console.log(this.newStation.Name + this.ime);

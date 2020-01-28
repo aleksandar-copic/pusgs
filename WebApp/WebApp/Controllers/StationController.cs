@@ -58,7 +58,13 @@ namespace WebApp.Controllers
                 if (!l.SerialNumber.Equals(serialNumber))
                     continue;
 
-                return Ok(l);
+                // resava problem prikaza Serial Number-a za liniju.
+                // FIXME: BUDZ
+                var ret = new Line()
+                {
+                    SerialNumber = serialNumber
+                };
+                return Ok(ret);
             }
 
             return StatusCode(HttpStatusCode.BadRequest);
@@ -101,10 +107,21 @@ namespace WebApp.Controllers
         {
             var station = db.Station.FirstOrDefault(x => x.Name == name);
 
+            var stations = db.Station.ToList();
+
             if (station == null)
                 return NotFound();
 
-            return Ok(station);
+            var lines = station.Lines.Select(s => s.Id.ToString()).ToList();
+
+            var addStation = new AddStation()
+            {
+                Name = station.Name,
+                Address = station.Address,
+                Lines = lines
+            };
+
+            return Ok(addStation);
         }
 
         // POST: api/StationEdit/UpdateStation
@@ -162,7 +179,7 @@ namespace WebApp.Controllers
         [Authorize(Roles = "Admin")]
         [ResponseType(typeof(string))]
         [Route("api/StationEdit/AddStation")]
-        public IHttpActionResult AddStation(Station station)
+        public IHttpActionResult AddStation(AddStation station)
         {
             var exists = false;
             var stations = Db.stationRepository.GetAll().ToList();
@@ -179,13 +196,24 @@ namespace WebApp.Controllers
 
             var allLines = Db.lineRepository.GetAll().ToList();
 
+            var lines = new List<Line>();
+            foreach (var l in station.Lines)
+            {
+                var line = allLines.Find(_ => _.Id.ToString() == l);
+
+                if (line == null)
+                    continue;
+                
+                lines.Add(line);
+            }
+
             var ret = new Station
             {
                 Name = station.Name,
                 Address = station.Address,
                 X = station.X,
                 Y = station.Y,
-                Lines = station.Lines.Intersect(allLines).ToList()
+                Lines = lines 
             };
 
             Db.stationRepository.Add(ret);

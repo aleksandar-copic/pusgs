@@ -79,19 +79,20 @@ namespace WebApp.Controllers
             line = Db.lineRepository.GetAll().ToList();
             int serialNumber = Int32.Parse(serial);
 
+            bool found = false;
             foreach (var l in line)
             {
-                if (l.SerialNumber.Equals(serialNumber))
-                {
-                    ret = l;
-                    break;
-                }
+                if (!l.SerialNumber.Equals(serialNumber)) continue;
+                ret = l;
+                found = true;
+                break;
             }
 
-            if (ret != null)
-                return Ok(ret);
-            else
-                return StatusCode(HttpStatusCode.BadRequest);
+            // resava problem prikaza Serial Number-a za liniju.
+            // FIXME: BUDZ
+            ret = new Line() {SerialNumber = serialNumber};
+
+            return Ok(ret);
 
         }
 
