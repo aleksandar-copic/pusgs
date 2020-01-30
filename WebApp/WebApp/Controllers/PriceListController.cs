@@ -179,8 +179,9 @@ namespace WebApp.Controllers
 
         private void SendEmail(string sendername, string sender, string recipient, string subject, string body)
         {
-            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587)
+            var smtpClient = new SmtpClient("smtp.gmail.com", 587)
             {
+                UseDefaultCredentials = true,
                 Credentials = new System.Net.NetworkCredential()
                 {
                     UserName = "jgspns71",
@@ -190,15 +191,22 @@ namespace WebApp.Controllers
                 EnableSsl = true
             };
 
-            MailAddress from = new MailAddress(sender, sendername);
-            MailAddress to = new MailAddress(recipient, "");
-            MailMessage mailMessage = new MailMessage(from, to)
+            var from = new MailAddress(sender, sendername);
+            var to = new MailAddress(recipient, "");
+            var mailMessage = new MailMessage(from, to)
             {
                 Subject = subject,
                 Body = body
             };
 
-            smtpClient.Send(mailMessage);
+            try
+            {
+                smtpClient.Send(mailMessage);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         // PriceList edit api

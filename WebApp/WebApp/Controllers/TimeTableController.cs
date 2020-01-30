@@ -37,33 +37,73 @@ namespace WebApp.Controllers
 
         [ResponseType(typeof(string))]
         [Route("api/TimeTable/GetTables/{selectedTeritory}/{selectedDay}/{selectedLine}")]
-        public IHttpActionResult GetPolasci(int selectedTeritory, int selectedDay, int selectedLine)
+        public IHttpActionResult GetDepartures(int selectedTeritory, int selectedDay, int selectedLine)
         {
-            TimeTable ret2 = new TimeTable();
-            var lines = Db.timeTableRepository.GetAll().ToList();
+            var ret2 = new TimeTable();
+            var timeTables = Db.timeTableRepository.GetAll().ToList();
 
-            string ret = "";                 //vremena
-            List<Line> line = new List<Line>();
+            string ret = "";
 
-            line = Db.lineRepository.GetAll().ToList();
-
-            foreach (TimeTable ttt in lines)
+            foreach (var ttt in timeTables)
             {
-                if (ttt.TimetableTypeId == selectedTeritory && ttt.DayTypeId == selectedDay && ttt.BusLineId == selectedLine) {
+                if (ttt.TimetableTypeId == selectedTeritory && ttt.DayTypeId == selectedDay &&
+                    ttt.BusLineId == selectedLine)
+                {
                     ret = ttt.Times;
                     break;
                 }
-                else
-                {
-                    ret = "Trenutno nema polazaka za odabranu liniju";
-                }
+
+                ret = "No departures for selected line";
             }
 
             if (ret != null)
                 return Ok(ret);
-            else
-                return StatusCode(HttpStatusCode.Accepted);
+            return StatusCode(HttpStatusCode.Accepted);
+        }
 
+        [ResponseType(typeof(string))]
+        [Route("api/TimeTable/AddTimetable")]
+        public IHttpActionResult AddTimeTable(AddTimeTable tt)
+        {
+            var line = Db.lineRepository.Find(x => x.Id == int.Parse(tt.lineId)).FirstOrDefault();
+
+            var timeTable = new TimeTable()
+            {
+                BusLine = line,
+                BusLineId = line.Id,
+                DayTypeId = int.Parse(tt.dayTypeId),
+                DayType = tt.dayTypeId == "1" ? "Urban" : "Suburban",
+                Id = (new Random()).Next(1, 100),
+                Times = tt.times,
+                TimetableType = tt.Id == "1" ? "Work day" : tt.Id == "2" ? "Saturday" : "Sunday"
+            };
+
+            line.Timetables.Add(timeTable);
+
+            return Ok("success");
+        }
+
+        [ResponseType(typeof(string))]
+        [Route("api/TimeTable/AddTimetable")]
+        public IHttpActionResult GetTimeTable(AddTimeTable tt)
+        {
+            var line = Db.lineRepository.Find(x => x.Id == int.Parse(tt.lineId)).FirstOrDefault();
+
+            if (line.Timetables == null)
+                return Ok("no timetables for selected line");
+
+            TimeTable timeTable = null;
+            foreach (var table in line.Timetables)
+            {
+                if (table.Id.ToString() == tt.Id && table.DayTypeId.ToString() == tt.dayTypeId &&
+                    table.TimetableTypeId.ToString() == tt.Id)
+                {
+                    timeTable = table;
+                    break;
+                }
+            }
+
+            return Ok(timeTable == null ? "this timetable does not exist." : timeTable.Times);
         }
     }
 }

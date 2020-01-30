@@ -294,6 +294,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddStation.cs" />
+    <Compile Include="Models\AddTimeTable.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Line.cs" />
     <Compile Include="Models\PriceList.cs" />

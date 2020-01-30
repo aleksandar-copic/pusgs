@@ -37,7 +37,7 @@ export class TimetableEditComponent implements OnInit {
   selectedDayType: string
   selectedLine: string
   selectedTimetable: Timetable = new Timetable()
-  allLines: Line[]
+  allLines: string[]
   dayTypes: string[] = ["Work day", "Saturday", "Sunday"]
   types: string[] = ["Urban", "Suburban"]
 
@@ -53,7 +53,7 @@ export class TimetableEditComponent implements OnInit {
 
     this.http.getAllLines().subscribe((item) => {
       this.allLines = item 
-      this.selectedLine = this.allLines[0].SerialNumber.toString()
+      this.selectedLine = this.allLines[0]
       err => console.log(err);
     });
   }
@@ -81,7 +81,7 @@ export class TimetableEditComponent implements OnInit {
     this.timetableAdd.patchValue({TimetableTypeId: this.TimetableTypeId, DayTypeId: this.DayTypeId, LineId: this.LineId})
 
     this.http.addTimetable(this.timetableAdd.value).subscribe((item) =>  {
-      if (item == "uspesno") {
+      if (item == "successfull") {
         alert("Successfully added timetable.")
         this.router.navigate(["/home"]);
       } 

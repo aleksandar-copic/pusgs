@@ -80,7 +80,7 @@ export class TimetableEditHttpService{
 
     getAllLines() : Observable<any>{
         return Observable.create((observer) => {    
-            this.http.get<any>(this.base_url + "/api/LineEdit/getAll").subscribe(data =>{
+            this.http.get<any>(this.base_url + "/api/LineEdit/Lines").subscribe(data =>{
                 observer.next(data);
                 observer.complete();     
             })             
