@@ -1,6 +1,7 @@
+import { CurrentLocationService } from './services/current-location.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { FormsModule}  from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { RouterModule,Routes} from '@angular/router';
 import { AppComponent } from './app.component';
@@ -33,15 +34,17 @@ import { StationEditHttpService } from './services/stationEdit.service';
 import { PriceListEditComponent } from './price-list-edit/price-list-edit.component';
 import { PriceListEditHttpService } from './services/priceListEdit.service';
 import { TimetableEditComponent } from './timetable-edit/timetable-edit.component';
-import {TimetableEditHttpService} from './services/timeTableEdit.service';
+import { TimetableEditHttpService} from './services/timeTableEdit.service';
+import { CurrentLocationComponent } from './current-location/current-location.component';
+import { MapComponent } from './map/map.component';
 
 const routes : Routes = [
-  {path : "login", component: LoginComponent},
-  {path : "home", component: HomeComponent},
-  {path : "register", component: RegisterComponent},
-  {path : "timetables", component: RedvoznjeComponent},
-  {path : "pricelist", component: CenovnikComponent},
-  {path : "profile", component: ProfilComponent},
+  {path: "login", component: LoginComponent},
+  {path: "home", component: HomeComponent},
+  {path: "register", component: RegisterComponent},
+  {path: "timetables", component: RedvoznjeComponent},
+  {path: "pricelist", component: CenovnikComponent},
+  {path: "profile", component: ProfilComponent},
   {path: "cardVerification", component: CardVerificationComponent},
   {path: "verificateUser", component: VerificateUserComponent},
   {path: "line", component: LineComponent},
@@ -49,7 +52,8 @@ const routes : Routes = [
   {path: "priceListEdit", component: PriceListEditComponent},
   {path: "timetableEdit", component: TimetableEditComponent},
   {path : "", component: HomeComponent, pathMatch:"full"},
-  
+  {path: "map", component: MapComponent},
+
   {path : "**", redirectTo: ""},
 ]
 
@@ -68,6 +72,8 @@ const routes : Routes = [
     StationEditComponent,
     PriceListEditComponent,
     TimetableEditComponent,
+    CurrentLocationComponent,
+    MapComponent,
     
   ],
   imports: [
@@ -76,10 +82,11 @@ const routes : Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),  
     ReactiveFormsModule,
+    // AgmCoreModule.forRoot({apiKey: 'AIzaSyConT_Zmu7xGI-KhVRNP5PM8ewAVCBmYDg'}),
     AgmCoreModule.forRoot({apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'}),
     UiModule 
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi:true},AuthHttpService,CardVerificationHttpService, CenovnikHttpService,ProfilHttpService,RedVoznjeHttpService, VerificateUserHttpService, LineHttpService, StationEditHttpService, PriceListEditHttpService, TimetableEditHttpService], //svi mogu da pristupe(injektuju servis)
+  providers: [{provide: HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi:true},AuthHttpService,CardVerificationHttpService, CenovnikHttpService,ProfilHttpService,RedVoznjeHttpService, VerificateUserHttpService, LineHttpService, StationEditHttpService, PriceListEditHttpService, TimetableEditHttpService, CurrentLocationService], //svi mogu da pristupe(injektuju servis)
   bootstrap: [AppComponent]
 })
 export class AppModule { }
