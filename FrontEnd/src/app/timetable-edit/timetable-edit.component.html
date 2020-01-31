@@ -21,8 +21,8 @@
 <br><br><br>
 <label>EDIT TIMETABLE</label>
 <form [formGroup]="timetableEdit" (ngSubmit)="Izaberi()">
-  <label for="selectedLine" class="col-sm-2 col-form-label">Line: </label>
-  <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedTimetable">
+  <label for="selectedLineEdit" class="col-sm-2 col-form-label">Line: </label>
+  <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedLineEdit">
       <option *ngFor="let line of allLines" [ngValue]="line">{{line}}</option>
   </select>
   &nbsp;
@@ -41,7 +41,7 @@
         <option *ngFor="let line of allLines">{{line.SerialNumber}}</option>
     </select>  
     <label for="Times" class="col-sm-2 col-form-label">Departure: </label>
-    <input type="text" class="form-control" formControlName="Times" id="Times"> 
+    <input type="text" class="form-control" [(ngModel)]="Times" formControlName="Times" id="Times"> 
     <br>
     <button type="submit" class="btn btn-secondary">Edit</button>
 </form>

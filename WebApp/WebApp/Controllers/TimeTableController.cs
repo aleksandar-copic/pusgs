@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+//using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -24,17 +26,7 @@ namespace WebApp.Controllers
             this.Db = db;
         }
 
-
-        //[Route("api/RedVoznje/getAll")]
-        //[HttpGet]
-        //public IHttpActionResult GetAll()
-        //{
-        //    var lines = Db.red.GetAll();
-
-        //    return Ok(lines);
-        //}
-
-
+        // TODO: ovo je staro, ako ne bude trebalo obrisace se.
         [ResponseType(typeof(string))]
         [Route("api/TimeTable/GetTables/{selectedTeritory}/{selectedDay}/{selectedLine}")]
         public IHttpActionResult GetDepartures(int selectedTeritory, int selectedDay, int selectedLine)
@@ -65,7 +57,8 @@ namespace WebApp.Controllers
         [Route("api/TimeTable/AddTimetable")]
         public IHttpActionResult AddTimeTable(AddTimeTable tt)
         {
-            var line = Db.lineRepository.Find(x => x.Id == int.Parse(tt.lineId)).FirstOrDefault();
+            var lineId = int.Parse(tt.lineId);
+            var line = Db.lineRepository.Find(x => x.Id == lineId).FirstOrDefault();
 
             var timeTable = new TimeTable()
             {
@@ -75,35 +68,60 @@ namespace WebApp.Controllers
                 DayType = tt.dayTypeId == "1" ? "Urban" : "Suburban",
                 Id = (new Random()).Next(1, 100),
                 Times = tt.times,
-                TimetableType = tt.Id == "1" ? "Work day" : tt.Id == "2" ? "Saturday" : "Sunday"
+                TimetableType = tt.timetableTypeId == "1" ? "Work day" : tt.timetableTypeId == "2" ? "Saturday" : "Sunday",
+                TimetableTypeId = int.Parse(tt.timetableTypeId)
             };
 
-            line.Timetables.Add(timeTable);
+            if (line.Timetables != null)
+                line.Timetables.Add(timeTable);
+            else
+                line.Timetables = new List<TimeTable>() {timeTable};
+
+            Db.timeTableRepository.Add(timeTable);
+            Db.Complete();
 
             return Ok("success");
         }
 
         [ResponseType(typeof(string))]
-        [Route("api/TimeTable/AddTimetable")]
-        public IHttpActionResult GetTimeTable(AddTimeTable tt)
+        [Route("api/TimeTable/GetTimetable/{lineId}/{timeTableTypeId}/{dayTypeId}")]
+        public IHttpActionResult GetTimeTable(string lineId, string timeTableTypeId, string dayTypeId)
         {
-            var line = Db.lineRepository.Find(x => x.Id == int.Parse(tt.lineId)).FirstOrDefault();
+            var timetables = Db.timeTableRepository.GetAll();
 
-            if (line.Timetables == null)
-                return Ok("no timetables for selected line");
-
-            TimeTable timeTable = null;
-            foreach (var table in line.Timetables)
+            foreach (var table in timetables)
             {
-                if (table.Id.ToString() == tt.Id && table.DayTypeId.ToString() == tt.dayTypeId &&
-                    table.TimetableTypeId.ToString() == tt.Id)
-                {
-                    timeTable = table;
-                    break;
-                }
+                if (table.BusLineId.ToString() != lineId || table.DayTypeId.ToString() != dayTypeId ||
+                    table.TimetableTypeId.ToString() != timeTableTypeId) continue;
+
+                return Ok(table.Times);
             }
 
-            return Ok(timeTable == null ? "this timetable does not exist." : timeTable.Times);
+            return Ok("this timetable does not exist");
+        }
+
+        [ResponseType(typeof(string))]
+        [Route("api/TimeTable/DeleteTimetable/{lineId}/{timeTableTypeId}/{dayTypeId}")]
+        public IHttpActionResult DeleteTimeTable(string lineId, string timeTableTypeId, string dayTypeId)
+        {
+            var timetables = db.TimeTable;
+
+            TimeTable t = null;
+            foreach (var table in timetables)
+            {
+                if (table.BusLineId.ToString() != lineId || table.DayTypeId.ToString() != dayTypeId ||
+                    table.TimetableTypeId.ToString() != timeTableTypeId) continue;
+
+                t = table;
+                break;
+            }
+
+            if (t == null)
+                return Ok("this timetable does not exist.");
+
+            db.TimeTable.Remove(t);
+            db.SaveChanges();
+            return Ok("success");
         }
     }
 }

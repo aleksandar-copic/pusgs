@@ -27,12 +27,28 @@ export class TimetableEditHttpService{
                 }
             }
             this.http.post<any>(this.base_url + "/api/timetable/AddTimetable",data,httpOptions).subscribe(data => {
-                observer.next("uspesno");
+                observer.next("success");
                 observer.complete();
             },
             err => {
                 console.log(err);
-                observer.next("neuspesno");
+                observer.next("unsuccessfull");
+                observer.complete();
+            });
+        });
+    }
+
+    getTimetable(timetable: Timetable) : Observable<any>{
+        return Observable.create((observer) => {
+            let data = timetable;
+            
+            this.http.get<any>(this.base_url + "/api/timetable/GetTimetable/" + data.Id + "/" + data.TimtableTypeId + "/" + data.DayTypeId).subscribe(data =>{
+                observer.next(data);
+                observer.complete();
+            },
+            err => {
+                console.log(err);
+                observer.next("unsuccessfull");
                 observer.complete();
             });
         });
@@ -61,18 +77,13 @@ export class TimetableEditHttpService{
     deleteTimetable(timetable: Timetable): Observable<any>{
         return Observable.create((observer) => {
             let data = timetable;
-            let httpOptions={
-                headers:{
-                    "Content-type": "application/json"
-                }
-            }
-            this.http.post<any>(this.base_url + "/api/timetable/DeleteTimetable",data,httpOptions).subscribe(data => {
-                observer.next("uspesno");
+            this.http.delete<any>(this.base_url + "/api/timetable/DeleteTimetable/" + data.Id + "/" + data.TimtableTypeId + "/" + data.DayTypeId).subscribe(data => {
+                observer.next("success");
                 observer.complete();
             },
             err => {
                 console.log(err);
-                observer.next("neuspesno");
+                observer.next("unsuccessfull");
                 observer.complete();
             });
         });

@@ -40,6 +40,7 @@ export class TimetableEditComponent implements OnInit {
   allLines: string[]
   dayTypes: string[] = ["Work day", "Saturday", "Sunday"]
   types: string[] = ["Urban", "Suburban"]
+  selectedLineEdit : number
 
   constructor(private fb: FormBuilder, private http: TimetableEditHttpService, private router: Router) { }
 
@@ -83,10 +84,10 @@ export class TimetableEditComponent implements OnInit {
     this.http.addTimetable(this.timetableAdd.value).subscribe((item) =>  {
       if (item == "successfull") {
         alert("Successfully added timetable.")
-        this.router.navigate(["/home"]);
+        // this.router.navigate(["/home"]);
       } 
       else {
-        err => console.log("Greska pri izmeni profila");
+        err => console.log("Error adding timetable");
       }
     });
    }
@@ -109,9 +110,18 @@ export class TimetableEditComponent implements OnInit {
       this.DayTypeId = 3
     }
 
+    this.selectedTimetable.Id = this.selectedLineEdit;
+    this.selectedTimetable.DayTypeId = this.DayTypeId;
+    this.selectedTimetable.TimtableTypeId = this.TimetableTypeId;
+    this.http.getTimetable(this.selectedTimetable).subscribe((item) => {
+      this.Times = item;
+      this.timetableEdit.value.Times = this.Times;
+      err => console.log(err);
+    });
+
     this.TimeTableId = this.selectedTimetable.Id
     this.LineId = parseInt(this.selectedLine)
-    this.timetableEdit.patchValue({Id: this.TimeTableId, TimetableTypeId: this.TimetableTypeId, DayTypeId: this.DayTypeId, LineId: this.LineId, Times: this.selectedTimetable.Times})
+    this.timetableEdit.patchValue({Id: this.TimeTableId, TimetableTypeId: this.TimetableTypeId, DayTypeId: this.DayTypeId, LineId: this.LineId, Times: this.Times})
   }
 
    Izmeni(){
@@ -127,13 +137,13 @@ export class TimetableEditComponent implements OnInit {
    }
 
    Obrisi(){
-    this.http.deleteTimetable(this.timetableEdit.value).subscribe((item) =>  {
-      if (item == "uspesno") {
+    this.http.deleteTimetable(this.selectedTimetable).subscribe((item) =>  {
+      if (item == "success") {
         alert("Successfully deleted timetable.")
-        this.router.navigate(["/home"]);
+        // this.router.navigate(["/home"]);
       } 
       else {
-        err => console.log("Greska pri izmeni profila");
+        err => console.log("Error while deleting timetable");
       }
     });
    }
