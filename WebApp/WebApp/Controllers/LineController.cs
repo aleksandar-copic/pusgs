@@ -141,7 +141,7 @@ namespace WebApp.Controllers
         [Route("api/LineEdit/DeleteSelectedLine/{serial}")]
         public IHttpActionResult DeleteSelectedLine(string serial)
         {
-            var lines = Db.lineRepository.GetAll().ToList();
+            var lines = db.Line.ToList();
             var serialNumber = int.Parse(serial);
 
             Line ret = null;
@@ -170,10 +170,10 @@ namespace WebApp.Controllers
             return Ok("success");
         }
 
-        // POST: api/LineEdit/AddLine
-        [ResponseType(typeof(string))]
-        [Route("api/LineEdit/AddLine")]
+        // POST: api/Line/AddLine
         [Authorize(Roles = "Admin")]
+        [ResponseType(typeof(string))]
+        [Route("api/Line/AddLine/{serial}")]
         public IHttpActionResult AddLine(string serial)
         {
             var found = false;

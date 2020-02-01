@@ -63,10 +63,6 @@ export class LineHttpService{
         });
     }
 
-    // GetLinije() : Observable<any> {
-    //  return this.http.get<any>(this.base_url + "/api/LineEdit/Linijas");
-    // }
-
     addLine(line: string) : Observable<any>{
 
         return Observable.create((observer) => {
@@ -76,7 +72,7 @@ export class LineHttpService{
                     "Content-type": "application/json"
                 }
             }
-            this.http.post<any>(this.base_url + "/api/LineEdit/AddLine",data,httpOptions).subscribe(data => {
+            this.http.post<any>(this.base_url + "/api/Line/AddLine/" + data ,httpOptions).subscribe(data => {
                 observer.next("success");
                 observer.complete();
             },
@@ -88,36 +84,4 @@ export class LineHttpService{
         });
      
     }
-
-    // GetSpoji(linija:string, stanica: string) : Observable<any> {
-    //     console.log("uslo i ovde");
-    //     return this.http.get<any>(this.base_url + "/api/LineEdit/Spoji/" + linija + "/" + stanica );
-    
-    // }
-
-    GetSpoji(linija:string, stanica: string) : Observable<any>{
-
-        console.log("uslo i ovde");
-        return Observable.create((observer) => {
-            let data = linija;
-            let httpOptions={
-                headers:{
-                    "Content-type": "application/json"
-                }
-            }
-            this.http.post<any>(this.base_url + "/api/LineEdit/Spoji/" + linija + "/" + stanica ,httpOptions).subscribe(data => {
-                observer.next("uspesno");
-                observer.complete();
-            },
-            err => {
-                console.log(err);
-                observer.next("neuspesno");
-                observer.complete();
-            });
-        });
-     
-    }
-
-   
-
 }

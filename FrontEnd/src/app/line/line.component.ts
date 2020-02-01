@@ -5,11 +5,13 @@ import { Line } from '../classes/line';
 import { AddLine } from '../classes/addLine';
 import { Station } from '../classes/station';
 import { LineHttpService } from '../services/line.service';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-line',
   templateUrl: './line.component.html',
-  styleUrls: ['./line.component.css']
+  styleUrls: ['./line.component.css'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class LineComponent implements OnInit {
 
@@ -78,8 +80,9 @@ export class LineComponent implements OnInit {
     this.http.deleteSelectedLine(this.selectedLine).subscribe((data) => {
       if(data == "success")
       {
-        alert("Uspesno obrisana linija");
-        this.router.navigate(["/line"]);
+        // alert("Uspesno obrisana linija");
+        // this.router.navigate(["/line"]);
+        this.lines = this.lines.filter(x => x.toString() !== this.selectedLine);
       }
       else
       {
@@ -105,6 +108,9 @@ export class LineComponent implements OnInit {
       {
         alert("Error adding new line");
         this.router.navigate(["/line"]);
+      }
+      else{
+        this.lines.push(this.newLine);
       }
       err => console.log(err);
     });
