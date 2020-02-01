@@ -42,30 +42,13 @@ namespace WebApp.Controllers
         [Route("api/LineEdit/Lines")]
         public IHttpActionResult GetLines()
         {
-            List<int> ret = new List<int>();
-            List<Line> line = new List<Line>();
+            var line = Db.lineRepository.GetAll().ToList();
 
-            line = Db.lineRepository.GetAll().ToList();
-
-            foreach (Line l in line)
-            {
+            var ret = new List<int>();
+            foreach (var l in line)
                 ret.Add(l.SerialNumber);
-            }
 
             return Ok(ret);
-        }
-
-        [AllowAnonymous]
-        [Route("api/LineEdit/Linijas")]
-        public List<string> GetLinije()
-        {
-            IQueryable<Line> linije = Db.lineRepository.GetAll().AsQueryable();
-            List<string> BrojeviLinija = new List<string>();
-            foreach (Line l in linije)
-            {
-                BrojeviLinija.Add(l.SerialNumber.ToString());
-            }
-            return BrojeviLinija;
         }
 
         // GET: api/LineEdit/SelectedLine
@@ -74,23 +57,22 @@ namespace WebApp.Controllers
         [Route("api/LineEdit/SelectedLine/{serial}")]
         public IHttpActionResult GetSelectedLine(string serial)
         {
-            List<Line> line = new List<Line>();
-            Line ret = new Line();
-            line = Db.lineRepository.GetAll().ToList();
+            var line = Db.lineRepository.GetAll().ToList();
             int serialNumber = Int32.Parse(serial);
 
-            bool found = false;
+            bool found;
             foreach (var l in line)
             {
                 if (!l.SerialNumber.Equals(serialNumber)) continue;
-                ret = l;
+
                 found = true;
                 break;
             }
 
+            // FIXME: vratiti listu svih stanica.
             // resava problem prikaza Serial Number-a za liniju.
             // FIXME: BUDZ
-            ret = new Line() {SerialNumber = serialNumber};
+            var ret = new Line() {SerialNumber = serialNumber};
 
             return Ok(ret);
 
@@ -102,34 +84,37 @@ namespace WebApp.Controllers
         [Route("api/LineEdit/GetStations/{serial}")]
         public IHttpActionResult GetStations(string serial)
         {
-            List<Line> line = new List<Line>();
-            Line ret = new Line();
-            line = Db.lineRepository.GetAll().ToList();
-            int serialNumber = Int32.Parse(serial);
+            var lines = Db.lineRepository.GetAll().ToList();
+            var serialNumber = int.Parse(serial);
 
-            foreach (var l in line)
+            Line ret = null;
+            foreach (var l in lines)
             {
-                if (l.SerialNumber.Equals(serialNumber))
+                if (!l.SerialNumber.Equals(serialNumber)) continue;
+
+                ret = l;
+                break;
+            }
+
+            if (ret == null)
+                return StatusCode(HttpStatusCode.BadRequest);
+
+            var stations = Db.stationRepository.GetAll().ToList();
+
+            var returnsList = new List<string>();
+
+            foreach (var station in stations)
+            {
+                foreach (var line in station.Lines)
                 {
-                    ret = l;
+                    if (line.SerialNumber != ret.SerialNumber)
+                        continue;
+                    returnsList.Add(station.Name);
                     break;
                 }
             }
 
-            List<Station> list = Db.stationRepository.Find(x => x.Lines.All(y => y.Id.Equals(ret.Id))).ToList();
-
-            List<string> returnsList = new List<string>();
-
-            foreach (Station s in list)
-            {
-                returnsList.Add(s.Name);
-            }
-
-            if (returnsList != null)
-                return Ok(returnsList);
-            else
-                return StatusCode(HttpStatusCode.BadRequest);
-
+            return Ok(returnsList);
         }
 
         // GET: api/LineEdit/SelectedLine
@@ -138,24 +123,16 @@ namespace WebApp.Controllers
         [Route("api/LineEdit/GetSelectedStation/{name}")]
         public IHttpActionResult GetSelectedStation(string name)
         {
-            List<Station> stations = new List<Station>();
-            Station ret = new Station();
-            stations = Db.stationRepository.GetAll().ToList();
+            var stations = Db.stationRepository.GetAll().ToList();
 
-            foreach (Station l in stations)
+            foreach (var l in stations)
             {
-                if (l.Name.Equals(name))
-                {
-                    ret = l;
-                    break;
-                }
+                if (!l.Name.Equals(name)) continue;
+
+                return Ok(l);
             }
 
-            if (ret != null)
-                return Ok(ret);
-            else
-                return StatusCode(HttpStatusCode.BadRequest);
-
+            return StatusCode(HttpStatusCode.BadRequest);
         }
 
         // DELETE: api/LineEdit/DeleteSelectedLine/{serial}
@@ -164,112 +141,71 @@ namespace WebApp.Controllers
         [Route("api/LineEdit/DeleteSelectedLine/{serial}")]
         public IHttpActionResult DeleteSelectedLine(string serial)
         {
-            List<Line> line = new List<Line>();
-            Line ret = new Line();
-            line = Db.lineRepository.GetAll().ToList();
-            int serialNumber = Int32.Parse(serial);
+            var lines = Db.lineRepository.GetAll().ToList();
+            var serialNumber = int.Parse(serial);
 
-            foreach (var l in line)
+            Line ret = null;
+            foreach (var l in lines)
             {
-                if (l.SerialNumber.Equals(serialNumber))
-                {
-                    ret = l;
-                    break;
-                }
+                if (!l.SerialNumber.Equals(serialNumber)) continue;
+
+                ret = l;
+                break;
             }
 
-            if (ret != null)
-            {
-                db.Entry(ret).State = EntityState.Deleted;
-
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (DbUpdateConcurrencyException e)
-                {
-                    return StatusCode(HttpStatusCode.BadRequest);
-                }
-
-                return Ok("uspesno");
-            }
-            else
+            if (ret == null)
                 return StatusCode(HttpStatusCode.BadRequest);
 
+            db.Entry(ret).State = EntityState.Deleted;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                return StatusCode(HttpStatusCode.BadRequest);
+            }
+
+            return Ok("success");
         }
 
         // POST: api/LineEdit/AddLine
         [ResponseType(typeof(string))]
         [Route("api/LineEdit/AddLine")]
         [Authorize(Roles = "Admin")]
-        public IHttpActionResult AddLine(Line line)
+        public IHttpActionResult AddLine(string serial)
         {
-            bool postoji = false;
-            List<Line> provera = new List<Line>();
-            provera = Db.lineRepository.GetAll().ToList();
+            var found = false;
+            var lines = Db.lineRepository.GetAll().ToList();
 
-            foreach (var l in provera)
+            var sNumber = int.Parse(serial);
+            foreach (var l in lines)
             {
-                if (l.SerialNumber.Equals(line.SerialNumber))
-                {
-                    postoji = true;
-                    break;
-                }
+                if (!l.SerialNumber.Equals(sNumber)) continue;
+
+                found = true;
+                break;
             }
 
-            if (!postoji)
-            {
-                Line ret = new Line();
-                ret.SerialNumber = line.SerialNumber;
-
-                List<Station> temp = new List<Station>();
-                temp = Db.stationRepository.GetAll().ToList();
-                List<Station> stations = new List<Station>();
-
-                foreach (Station s in temp)
-                {
-                    //if (line.Stations.Contains(s))
-                    foreach(var ss in line.Stations)
-                    {
-                        if (ss.Name == s.Name)
-                        {
-                            stations.Add(s);
-                            ret.Stations = stations;
-
-                            Db.lineRepository.Add(ret);
-                            Db.Complete();
-                            return Ok("uspesno");
-                        }
-                    }
-                }
-
-
-                return Ok("uspesno");
-            }
-            else
-            {
+            if (found)
                 return StatusCode(HttpStatusCode.BadRequest);
-            }
-        }
 
+            
+            var ret = new Line
+            {
+                SerialNumber = sNumber,
+                Stations = new List<Station>(),
+                Id = sNumber,
+                Timetables = new List<TimeTable>()
+            };
 
-        // POST: api/LineEdit/Spoji/{linija}/{stanica}
-        [ResponseType(typeof(string))]
-        [Route("api/LineEdit/Spoji/{linija}/{stanica}")]
-        [Authorize(Roles = "Admin")]
-        public IHttpActionResult Spoji(string linija, string stanica)
-        {
-            Line lin = Db.lineRepository.GetAll().Where(x => x.SerialNumber.ToString() == linija).FirstOrDefault();
-            Station sta = Db.stationRepository.GetAll().Where(x => x.Name == stanica).FirstOrDefault();
-            lin.Stations = new List<Station>();
-            lin.Stations.Add(sta);
-            sta.Lines = new List<Line>();
-            sta.Lines.Add(lin);
-            Db.stationRepository.Update(sta);
-            Db.lineRepository.Update(lin);
+            // ovde se ne dodaju stanice, vec samo prazna linija.
+            // linije se povezuju sa stanicom prilikom dodavanja nove stanice, ili edita neke stanice.
+            Db.lineRepository.Add(ret);
             Db.Complete();
-            return Ok("");
 
+            return Ok("uspesno");
         }
 
         // GET: api/LineEdit/GetAllStations
@@ -278,55 +214,18 @@ namespace WebApp.Controllers
         [Route("api/LineEdit/GetAllStations")]
         public IHttpActionResult GetAllStations()
         {
-            List<Station> stations = new List<Station>();
-            List<string> ret = new List<string>();
+            var stations = Db.stationRepository.GetAll().ToList();
 
-            stations = Db.stationRepository.GetAll().ToList();
-
-            foreach (Station l in stations)
-            {
-                ret.Add(l.Name);
-            }
-
-            if (ret != null)
-                return Ok(ret);
-            else
+            if (!stations.Any())
                 return StatusCode(HttpStatusCode.BadRequest);
 
+            var ret = new List<string>();
+
+            foreach (var l in stations)
+                ret.Add(l.Name);
+
+            return Ok(ret);
         }
-
-        //[AllowAnonymous]
-        //[ResponseType(typeof(string))]
-        //[Route("api/LineEdit/GetStanica/{linijaBroj}")]
-        //public IHttpActionResult GetStanica(string linijaBroj)
-        //{
-        //    List<Line> sveLinije = Db.busLineRepository.GetAll().ToList();
-        //    Line izabranaLinija = new Line();
-
-        //    foreach (var l in sveLinije)
-        //    {
-        //        if (l.SerialNumber.ToString() == linijaBroj)
-        //        {
-        //            izabranaLinija = l;
-        //            break;
-        //        }
-        //    }
-
-        //    if (izabranaLinija == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    List<Koordinate> listaKoordinata = new List<Koordinate>();
-        //    foreach (var stanica in izabranaLinija.Stations)
-        //    {
-        //        Koordinate k = new Koordinate() { x = stanica.X, y = stanica.Y, name = stanica.Name };
-        //        listaKoordinata.Add(k);
-        //    }
-
-        //    return Ok(listaKoordinata);
-        //}
-
 
         protected override void Dispose(bool disposing)
         {

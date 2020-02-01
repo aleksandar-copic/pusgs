@@ -37,7 +37,7 @@ export class LineComponent implements OnInit {
   stationAddSelected: string
   temp: boolean = true
   serNum: number
-  newLine: AddLine = new AddLine()
+  newLine: string 
   
 
   ngOnInit() {
@@ -100,27 +100,10 @@ export class LineComponent implements OnInit {
   }
 
   AddLine(){
-    this.newLine.SerialNumber = this.serNum;
-    this.newLine.StationsAdd = this.StationsAdd;
     this.http.addLine(this.newLine).subscribe((data) => {
-      if(data == "uspesno")
+      if(data == "unsuccessfull")
       {
-        this.newLine = new AddLine();
-        this.serNum = null;
-        this.StationsAdd = [];
-        this.stationAddSelected = this.stationToChose[0];
-
-        alert("Uspesno dodata linija");
-        this.router.navigate(["/line"]);
-      }
-      else
-      {
-        this.newLine = new AddLine();
-        this.serNum = null;
-        this.StationsAdd = [];
-        this.stationAddSelected = this.stationToChose[0];
-
-        alert("Neuspesno dodata linija");
+        alert("Error adding new line");
         this.router.navigate(["/line"]);
       }
       err => console.log(err);

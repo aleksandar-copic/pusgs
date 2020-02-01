@@ -47,7 +47,7 @@ export class LineHttpService{
 
     getSelectedStation(name: string) : Observable<any>{
         return Observable.create((observer) => {    
-            this.http.get<any>(this.base_url + "/api/LineEdit/GetSelectedStation/" + name).subscribe(data =>{
+            this.http.get<any>(this.base_url + "/api/StationEdit/GetSelectedStation/" + name).subscribe(data =>{
                 observer.next(data);
                 observer.complete();     
             })             
@@ -63,11 +63,11 @@ export class LineHttpService{
         });
     }
 
-    GetLinije() : Observable<any> {
-        return this.http.get<any>(this.base_url + "/api/LineEdit/Linijas");
-      }
+    // GetLinije() : Observable<any> {
+    //  return this.http.get<any>(this.base_url + "/api/LineEdit/Linijas");
+    // }
 
-    addLine(line: AddLine) : Observable<any>{
+    addLine(line: string) : Observable<any>{
 
         return Observable.create((observer) => {
             let data = line;
@@ -77,12 +77,12 @@ export class LineHttpService{
                 }
             }
             this.http.post<any>(this.base_url + "/api/LineEdit/AddLine",data,httpOptions).subscribe(data => {
-                observer.next("uspesno");
+                observer.next("success");
                 observer.complete();
             },
             err => {
                 console.log(err);
-                observer.next("neuspesno");
+                observer.next("unsuccessfull");
                 observer.complete();
             });
         });
