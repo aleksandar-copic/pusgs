@@ -37,6 +37,7 @@ import { TimetableEditComponent } from './timetable-edit/timetable-edit.componen
 import { TimetableEditHttpService} from './services/timeTableEdit.service';
 import { CurrentLocationComponent } from './current-location/current-location.component';
 import { MapComponent } from './map/map.component';
+import { RoutesComponent } from './routes/routes.component';
 
 const routes : Routes = [
   {path: "login", component: LoginComponent},
@@ -51,10 +52,10 @@ const routes : Routes = [
   {path: "stationEdit", component: StationEditComponent},
   {path: "priceListEdit", component: PriceListEditComponent},
   {path: "timetableEdit", component: TimetableEditComponent},
-  {path : "", component: HomeComponent, pathMatch:"full"},
+  {path: "", component: HomeComponent, pathMatch:"full"},
   {path: "map", component: MapComponent},
-
-  {path : "**", redirectTo: ""},
+  {path: "routes", component: RoutesComponent},
+  {path: "**", redirectTo: ""},
 ]
 
 @NgModule({
@@ -74,6 +75,7 @@ const routes : Routes = [
     TimetableEditComponent,
     CurrentLocationComponent,
     MapComponent,
+    RoutesComponent,
     
   ],
   imports: [

@@ -1,0 +1,71 @@
+<div>
+    <h2>Choose the route:</h2>
+    <select #lineName>
+        <option *ngFor="let t of lines">
+        {{t}} 
+        </option>
+    </select>
+    <br>
+    <button type="submit" (click)="getSelectedLine(lineName.value)">Show</button>
+</div>
+<p>
+    <br>
+    <!-- Kreiramo mapu -->
+    <agm-map [latitude]="markerInfo.location.latitude" [longitude]="markerInfo.location.longitude" [zoom]="18" (mapClick)="placeMarker($event)">  
+        
+        <!-- Iscrtavanje stanica i njenih informacija -->
+        <agm-marker *ngFor="let st of stationsArray" [latitude]="st.X" [longitude]="st.Y" [title]="st.Address"
+          [iconUrl]="polyline.iconUrl">
+
+            <!-- Svakom markeru dodajemo info-window (Nije obavezno!)-->
+            <agm-info-window [latitude]="st.X" [longitude]="st.Y" >
+                <!-- U info-window stavljamo html -->
+                <span style="font-size: 16px;font-family:'Times New Roman'">{{st.Name}}</span>
+                <br/>    
+                <span style="font-family:'Times New Roman'; color:gray;">{{st.Address}}</span>
+            </agm-info-window>
+
+        </agm-marker>
+        
+        <!-- Iscrtavanje putanje -->
+       <agm-polyline [strokeColor]="polyline.color">
+            <agm-polyline-point *ngFor="let point of polyline.path" [latitude]="point.latitude" [longitude]="point.longitude">
+            </agm-polyline-point>
+       </agm-polyline>
+
+       <!--Verovatno ne treba, jer se iscrtavaju sve stanice, a putanju cine stanice-->
+       <!-- <agm-marker *ngFor="let point of polyline.path" [latitude]="point.latitude" [longitude]="point.longitude" [iconUrl]="polyline.icon">
+       </agm-marker> -->
+
+
+
+
+
+       <!-- ----------------------------------- Test ----------------------------------- -->
+       
+       <!-- <agm-marker [latitude]="test_markerInfo.location.latitude" [longitude]="test_markerInfo.location.longitude" 
+       [title]="test_markerInfo.title" [label]="test_markerInfo.label" [iconUrl]="test_markerInfo.iconUrl">
+            <agm-info-window [latitude] = "test_markerInfo.location.latitude" [longitude] = "test_markerInfo.location.longitude">
+                <span style="font-size: 16px;font-family:'Times New Roman'">{{test_markerInfo.title}}</span>
+                <br/>    
+                <span style="font-family:'Times New Roman'; color:gray;">{{test_markerInfo.link}}</span>
+            </agm-info-window>
+       </agm-marker> -->
+
+       <agm-polyline [strokeColor]="test_polyline.color">
+        <agm-polyline-point *ngFor="let point of test_polyline.path" [latitude]="point.latitude" [longitude]="point.longitude">
+        </agm-polyline-point>
+       </agm-polyline>
+
+       <agm-marker *ngFor="let point of test_polyline.path" [latitude]="point.latitude" [longitude]="point.longitude" [iconUrl]="test_polyline.icon">
+            <agm-info-window [latitude] = "point.latitude" [longitude] = "point.longitude">
+                <span style="font-size: 16px;font-family:'Times New Roman'">Stanica</span>
+                <br/>    
+                <span style="font-family:'Times New Roman'; color:gray;">Ulica stanice</span>
+            </agm-info-window>
+       </agm-marker>
+       <!-- ---------------------------------------------------------------------------- -->
+
+    </agm-map>
+  </p>
+  
