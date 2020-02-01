@@ -67,63 +67,54 @@ namespace WebApp.Controllers
 
             try
             {
-                if (httpRequest.Files.Count > 0)
+                if (httpRequest.Files.Count == 0)
+                    return BadRequest();
+
+                foreach (string file in httpRequest.Files)
                 {
-                    foreach (string file in httpRequest.Files)
+                    var userStore = new UserStore<ApplicationUser>(db);
+                    var userManager = new UserManager<ApplicationUser>(userStore);
+
+                    var list = userManager.Users.ToList();
+
+                    ApplicationUser ret = null;
+                    foreach (var user in list)
                     {
+                        if (!user.UserName.Equals(username)) continue;
 
-                        ApplicationUser ret = new ApplicationUser();
-
-                        var userStore = new UserStore<ApplicationUser>(db);
-                        var userManager = new UserManager<ApplicationUser>(userStore);
-
-                        List<ApplicationUser> list = userManager.Users.ToList();
-
-                        foreach (ApplicationUser a in list)
-                        {
-                            if (a.UserName.Equals(username))
-                            {
-                                ret = a;
-                                break;
-                            }
-                        }
-
-                        if (ret == null)
-                        {
-                            return BadRequest("User does not exists.");
-                        }
-
-                        if (ret.ImageUrl != null)
-                        {
-                            File.Delete(HttpContext.Current.Server.MapPath("~/UploadFile/" + ret.ImageUrl));
-                        }
-
-                        var postedFile = httpRequest.Files[file];
-                        string fileName = username + "_" + postedFile.FileName;
-                        var filePath = HttpContext.Current.Server.MapPath("~/UploadFile/" + fileName);
-
-                        ret.ImageUrl = fileName;
-
-                        db.Entry(ret).State = EntityState.Modified;
-
-                        try
-                        {
-                            db.SaveChanges();
-                        }
-                        catch (DbUpdateConcurrencyException)
-                        {
-                            return StatusCode(HttpStatusCode.BadRequest);
-                        }
-
-                        postedFile.SaveAs(filePath);
+                        ret = user;
+                        break;
                     }
 
-                    return Ok();
+                    if (ret == null)
+                        return BadRequest("User does not exists.");
+
+                    var postedFile = httpRequest.Files[file];
+                    var fileName = username + "_" + postedFile.FileName;
+
+                    var path = HttpContext.Current.Server.MapPath("~/UploadFile/");
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    if (ret.ImageUrl != null)
+                        File.Delete(path + fileName);
+
+                    ret.ImageUrl = fileName;
+
+                    db.Entry(ret).State = EntityState.Modified;
+
+                    db.SaveChanges();
+
+                    var filePath = HttpContext.Current.Server.MapPath("~/UploadFile/" + fileName);
+
+                    postedFile.SaveAs(filePath);
                 }
-                else
-                {
-                    return BadRequest();
-                }
+
+                return Ok();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return StatusCode(HttpStatusCode.BadRequest);
             }
             catch (Exception e)
             {
@@ -141,8 +132,9 @@ namespace WebApp.Controllers
 
             var userStore = new UserStore<ApplicationUser>(db);
             var userManager = new UserManager<ApplicationUser>(userStore);
-            ApplicationUser user = new ApplicationUser();
-            string idUsera = User.Identity.GetUserId();
+            var user = new ApplicationUser();
+
+            var idUsera = User.Identity.GetUserId();
             if (idUsera != null)
             {
                 var id = User.Identity.GetUserId();
@@ -155,7 +147,7 @@ namespace WebApp.Controllers
             user.Date = model.Date;
             user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
-            //user.ImageUrl = model.ImageUrl;
+            user.ImageUrl = model.ImageUrl;
 
             db.Entry(user).State = EntityState.Modified;
 

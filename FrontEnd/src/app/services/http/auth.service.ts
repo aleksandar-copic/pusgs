@@ -86,7 +86,7 @@ export class AuthHttpService{
             let httpOptions = {
                 headers: new HttpHeaders().delete('Content-Type')
             }
-            this.http.post<any>(this.base_url + "/api/Profil/UplaodPicture/" + id,data,httpOptions).subscribe(data => {
+            this.http.post<any>(this.base_url + "/api/Profile/UplaodPicture/" + id,data,httpOptions).subscribe(data => {
                 observer.next("uspesno");
                 observer.complete();
             },

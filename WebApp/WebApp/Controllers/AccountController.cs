@@ -328,7 +328,7 @@ namespace WebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email, TypeId = 1, Name = model.Name, Password = model.Password, Date = model.Date, ConfirmPassword = model.ConfirmPassword, Surname = model.Surname, VerificateAcc = 0, Address = model.Address, PhoneNumber = model.PhoneNumber };
+            var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email, TypeId = 1, Name = model.Name, Password = model.Password, Date = model.Date, ConfirmPassword = model.ConfirmPassword, Surname = model.Surname, VerificateAcc = 0, Address = model.Address, PhoneNumber = model.PhoneNumber, ImageUrl = model.ImageUrl};
 
             // var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 

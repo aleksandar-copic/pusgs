@@ -37,6 +37,7 @@ export class VerificateUserComponent implements OnInit {
     this.odluka = "";
     this.http.getUsers().subscribe((usersData) => {
       this.users = usersData;
+      this.selectedId = usersData[0].Id;
       err => console.log(err);
     });
   }
