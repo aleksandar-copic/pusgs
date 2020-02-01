@@ -93,15 +93,6 @@ export class LineComponent implements OnInit {
     });
   }
 
-  addStation()
-  {
-    
-     this.http.GetSpoji(this.selectedLine, this.stationAddSelected).subscribe((data) => 
-     {
-      err => console.log(err);
-     });
-  }
-
   AddLine(){
     this.http.addLine(this.newLine).subscribe((data) => {
       if(data == "unsuccessfull")
