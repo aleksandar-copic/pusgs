@@ -58,7 +58,7 @@ namespace WebApp.Controllers
         public IHttpActionResult AddTimeTable(AddTimeTable tt)
         {
             var lineId = int.Parse(tt.lineId);
-            var line = Db.lineRepository.Find(x => x.Id == lineId).FirstOrDefault();
+            var line = db.Line.ToList().Find(x => x.SerialNumber == lineId);
 
             var timeTable = new TimeTable()
             {
@@ -72,13 +72,9 @@ namespace WebApp.Controllers
                 TimetableTypeId = int.Parse(tt.timetableTypeId)
             };
 
-            if (line.Timetables != null)
-                line.Timetables.Add(timeTable);
-            else
-                line.Timetables = new List<TimeTable>() {timeTable};
-
-            Db.timeTableRepository.Add(timeTable);
-            Db.Complete();
+            db.TimeTable.Add(timeTable);
+            db.Entry(timeTable).State = EntityState.Added;
+            db.SaveChanges();
 
             return Ok("success");
         }
@@ -87,8 +83,9 @@ namespace WebApp.Controllers
         [Route("api/TimeTable/GetTimetable/{lineId}/{timeTableTypeId}/{dayTypeId}")]
         public IHttpActionResult GetTimeTable(string lineId, string timeTableTypeId, string dayTypeId)
         {
-            var timetables = Db.timeTableRepository.GetAll();
+            var timetables = db.TimeTable.ToList();
 
+            lineId = db.Line.ToList().Find(x => x.SerialNumber.ToString() == lineId).Id.ToString();
             foreach (var table in timetables)
             {
                 if (table.BusLineId.ToString() != lineId || table.DayTypeId.ToString() != dayTypeId ||
@@ -106,6 +103,7 @@ namespace WebApp.Controllers
         {
             var timetables = db.TimeTable;
 
+            lineId = db.Line.ToList().Find(x => x.SerialNumber.ToString() == lineId).Id.ToString();
             TimeTable t = null;
             foreach (var table in timetables)
             {

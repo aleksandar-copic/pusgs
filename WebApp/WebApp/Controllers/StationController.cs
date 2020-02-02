@@ -150,7 +150,12 @@ namespace WebApp.Controllers
 
             foreach (var line in station.Lines)
             {
-                bool found = false;
+                var found = false;
+
+                var lineDb = (from l in db.Line.ToList() where l.SerialNumber.ToString() == line select l).First();
+                if (lineDb == null)
+                    continue;
+
                 foreach (var l in stationDb.Lines)
                 {
                     if (l.SerialNumber != int.Parse(line)) continue;
@@ -159,7 +164,7 @@ namespace WebApp.Controllers
                     break;
                 }
                 if (!found)
-                    stationDb.Lines.Add(new Line(){Id = int.Parse(line), SerialNumber = int.Parse(line)});
+                    stationDb.Lines.Add(lineDb);
             }
 
             db.Entry(stationDb).State = EntityState.Modified;
