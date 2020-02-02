@@ -4,6 +4,7 @@ import { NgForm, FormBuilder, Validators } from '@angular/forms';
 import { CardVerificationHttpService } from '../services/cardVerification.service';
 import { Observable } from 'rxjs';
 import { Card } from '../classes/card';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-card-verification',
@@ -28,9 +29,16 @@ export class CardVerificationComponent implements OnInit {
       if(temp == "true"){
         this.message = "Active"
       }
-      else{
+      else if(temp == "false"){
         this.message = "Expired"
       }
+      else{
+        this.message = temp
+      }
+    },
+    (error:HttpErrorResponse) => {
+      this.message = "card id doesn't exist";
+      console.log(error.error);
     });
   }
 

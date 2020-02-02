@@ -152,12 +152,12 @@ namespace WebApp.Controllers
             Ticket ticket = db.Ticket.FirstOrDefault(x => x.Id.Equals(id));
 
             if (ticket == null)
-                return StatusCode(HttpStatusCode.BadRequest);
+                return Ok("Card id not found!");
 
             var priceList = db.Pricelist.FirstOrDefault(x => x.Id.Equals(ticket.PricelistId));
 
             if (priceList == null)
-                return StatusCode(HttpStatusCode.BadRequest);
+                return Ok("Pricelist not found for card id.");
 
             var validFrom = DateTime.Parse(priceList.From);
             var validTo = DateTime.Parse(priceList.To);

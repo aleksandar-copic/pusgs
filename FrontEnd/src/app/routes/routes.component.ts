@@ -36,7 +36,7 @@ export class RoutesComponent implements OnInit {
   selectedLine: string;
   line: Line;
   stations: string[];
-  stationsArray: Station[];
+  stationsArray: Station[] = [];
   selectedStation: string;
   station: Station;
   clicked: boolean;
@@ -85,21 +85,20 @@ export class RoutesComponent implements OnInit {
       this.line = data;
       //this.lineForm.patchValue({ SerialNumber : data.SerialNumber })
       err => console.log(err);
+      this.http.getStations(this.line.SerialNumber.toString()).subscribe((data) => {
+        this.stations = data;
+        //this.selectedStation = this.stations[0];
+        err => console.log(err);
+        
+        for(let i = 0; i < this.stations.length; i++){
+          this.http.getSelectedStation(this.stations[i]).subscribe((data) => {
+            this.station = data;
+            this.stationsArray.push(data);
+            this.polyline.addLocation(new GeoLocation(this.station.X, this.station.Y));
+          })
+        }
+      });
     });
-
-    this.http.getStations(this.line.SerialNumber.toString()).subscribe((data) => {
-      this.stations = data;
-      //this.selectedStation = this.stations[0];
-      err => console.log(err);
-    });
-
-    for(let i = 0; i < this.stations.length; i++){
-      this.http.getSelectedStation(this.stations[i]).subscribe((data) => {
-        this.station = data;
-        this.stationsArray.push(data);
-        this.polyline.addLocation(new GeoLocation(this.station.X, this.station.Y));
-      })
-    }
   }
 
   // Puts Marker on click

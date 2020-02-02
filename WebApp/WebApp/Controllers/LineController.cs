@@ -79,7 +79,7 @@ namespace WebApp.Controllers
         }
 
         // GET: api/LineEdit/SelectedLine
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [ResponseType(typeof(List<string>))]
         [Route("api/LineEdit/GetStations/{serial}")]
         public IHttpActionResult GetStations(string serial)

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { ProfilHttpService } from '../services/profil.service';
+import { AuthHttpService } from '../services/http/auth.service'
 import { User } from '../classes/user';
 
 @Component({
@@ -25,7 +26,12 @@ export class ProfilComponent implements OnInit {
   user: User = new User();
   approved: string
   message:string
-  constructor(private fb: FormBuilder,private http: ProfilHttpService) { }
+  constructor(private fb: FormBuilder,private http: ProfilHttpService, private auth: AuthHttpService) { }
+
+  selectedFile: File = null;
+  onFileSelected(event) {
+    this.selectedFile = <File>event.target.files[0];
+  }
 
   ngOnInit() {
     this.http.getUser().subscribe((data) => {
@@ -75,12 +81,20 @@ export class ProfilComponent implements OnInit {
   UpdateUser() {
     this.http.updateUser(this.updateForm.value).subscribe((userProfileInfo) =>  {
       if (userProfileInfo == "uspesno") {
+        if(this.selectedFile != null){
+          let formData = new FormData();
+          formData.append('ImageUrl', this.selectedFile, this.selectedFile.name);
+          this.auth.uploadImage(formData, this.user.UserName).subscribe(ret => {
+            
+          },
+          err => console.log(err));
+        }
         //this.updateForm.reset();
-        this.message = "Uspesno ste izmenili profil";
+        this.message = "Successfully edited profile";
       } 
       else {
-        err => console.log("Greska pri izmeni profila");
-        this.message = "Greska pri izmeni profila";
+        err => console.log("Error while editing profile");
+        this.message = "Error while editing profile";
       }
     });
   }

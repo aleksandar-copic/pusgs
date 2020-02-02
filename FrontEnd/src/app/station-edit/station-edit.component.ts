@@ -22,6 +22,7 @@ export class StationEditComponent implements OnInit {
   stationForm = this.fb.group({
     Name: ['', Validators.required],
     Address: ['', Validators.required],
+    lineEditSelected: ['', Validators.nullValidator]
   });
 
   selectedLine: string
@@ -30,13 +31,14 @@ export class StationEditComponent implements OnInit {
   station: Station = new Station()
   lines: string[] = []
   idStation: number
-  stationUpdate: Station = new Station()
+  stationUpdate: AddStation = new AddStation()
 
   line: Line = new Line()
 
   LinesAdd: Array<string> = [];
   linesToChose: Array<string> = [];
   lineAddSelected: string
+  lineEditSelected: string
 
   temp: boolean = true
   newStation: AddStation = new AddStation()
@@ -53,6 +55,7 @@ export class StationEditComponent implements OnInit {
     this.http.getAllLines().subscribe((data) => {
       this.linesToChose = data;
       this.lineAddSelected = this.linesToChose[0];
+      this.stationForm.patchValue({lineEditSelected:  this.linesToChose[0]});
       err => console.log(err);
     });
   }
@@ -84,7 +87,7 @@ export class StationEditComponent implements OnInit {
   }
 
   deleteSelectedStation(){
-    this.http.deleteSelectedStation(this.idStation).subscribe((data) => {
+    this.http.deleteSelectedStation(this.selectedStation).subscribe((data) => {
       if(data == "success")
       {
         alert("Uspesno obrisana linija");
@@ -102,6 +105,10 @@ export class StationEditComponent implements OnInit {
   UpdateStation(){
     this.stationUpdate = this.stationForm.value;
     this.stationUpdate.Id = this.idStation;
+    this.stationUpdate.Lines = this.lines;
+    this.LinesAdd.forEach(e => {
+      this.stationUpdate.Lines.push(e);
+    })
     this.http.updateStation(this.stationUpdate).subscribe((data) => {
       if(data == "uspesno")
       {
@@ -115,6 +122,25 @@ export class StationEditComponent implements OnInit {
       }
       err => console.log(err);
     });
+    this.LinesAdd = [];
+  }
+
+  updateLines(){
+    this.temp = true;
+    this.LinesAdd.forEach(element => {
+      if(element == this.stationForm.value.lineEditSelected){
+        this.temp = false;
+      }
+    });
+    
+    if(this.temp == true)
+    {
+      this.LinesAdd.push(this.stationForm.value.lineEditSelected);
+    }
+    else
+    {
+      this.temp = true;
+    }
   }
 
   addLine()
@@ -129,7 +155,7 @@ export class StationEditComponent implements OnInit {
     if(this.temp == true)
     {
       this.LinesAdd.push(this.lineAddSelected);
-      this.lineAddSelected = null;
+      // this.lineAddSelected = null;
     }
     else
     {

@@ -108,13 +108,7 @@
     <div *ngIf="!jwtIsAdmin() && !jwtIsController()" class="form-group row">
       <label for="ImageUrl" class="col-sm-2 col-form-label">Document</label> &nbsp; &nbsp;
       <div class="col-sm-10">
-        <input
-          type="text"
-          class="form-control"
-          readonly="false"
-          formControlName="ImageUrl"
-          id="ImageUrl"
-        />
+       <input type="file" formControlName="ImageUrl" (change)="onFileSelected($event)" />
       </div>
     </div>
     <br><br>

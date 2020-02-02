@@ -13,7 +13,7 @@ export class AuthGuardLogin implements CanActivate, CanActivateChild {
   constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {    
-    if (localStorage.jwt !== 'undefined' && localStorage.role !== 'undefined') {
+    if (localStorage.jwt !== 'undefined') {
       return true;
     }
     // not logged in so redirect to login page

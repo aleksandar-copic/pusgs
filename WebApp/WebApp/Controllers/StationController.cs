@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -100,7 +102,7 @@ namespace WebApp.Controllers
         }
 
         // GET: api/StationEdit/GetSelectedStation/{name}
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [ResponseType(typeof(Station))]
         [Route("api/StationEdit/GetSelectedStation/{name}")]
         public IHttpActionResult GetSelectedStation(string name)
@@ -118,7 +120,9 @@ namespace WebApp.Controllers
             {
                 Name = station.Name,
                 Address = station.Address,
-                Lines = lines
+                Lines = lines,
+                X = station.X,
+                Y = station.Y
             };
 
             return Ok(addStation);
@@ -128,22 +132,37 @@ namespace WebApp.Controllers
         [Authorize(Roles = "Admin")]
         [ResponseType(typeof(string))]
         [Route("api/StationEdit/UpdateStation")]
-        public IHttpActionResult UpdateStation(Station station)
+        public IHttpActionResult UpdateStation(AddStation station)
         {
-            bool exists = false;
-            var stations = Db.stationRepository.GetAll().ToList();
+            var stations = db.Station.ToList();
 
+            Station stationDb = null;
             foreach (var s in stations)
             {
-                if (!s.Name.Equals(station.Name) || s.Id.Equals(station.Id)) continue;
-                exists = true;
+                if (!s.Name.Equals(station.Name)) continue;
+
+                stationDb = s;
                 break;
             }
 
-            if (!exists)
+            if (stationDb == null)
                 return StatusCode(HttpStatusCode.BadRequest);
 
-            db.Entry(station).State = EntityState.Modified;
+            foreach (var line in station.Lines)
+            {
+                bool found = false;
+                foreach (var l in stationDb.Lines)
+                {
+                    if (l.SerialNumber != int.Parse(line)) continue;
+
+                    found = true;
+                    break;
+                }
+                if (!found)
+                    stationDb.Lines.Add(new Line(){Id = int.Parse(line), SerialNumber = int.Parse(line)});
+            }
+
+            db.Entry(stationDb).State = EntityState.Modified;
 
             try
             {
@@ -207,12 +226,17 @@ namespace WebApp.Controllers
                 lines.Add(line);
             }
 
+            var random = new Random();
+            var maxX = 45.270244;
+            var minX = 45.232297;
+            var maxY = 19.844869;
+            var minY = 19.789069;
             var ret = new Station
             {
                 Name = station.Name,
                 Address = station.Address,
-                X = station.X,
-                Y = station.Y,
+                X = random.NextDouble() * (maxX - minX) + minX,
+                Y = random.NextDouble() * (maxY - minY) + minY,
                 Lines = lines 
             };
 
@@ -225,11 +249,10 @@ namespace WebApp.Controllers
         // DELETE: api/StationEdit/DeleteSelectedStation/{serial}
         [Authorize(Roles = "Admin")]
         [ResponseType(typeof(string))]
-        [Route("api/StationEdit/DeleteSelectedStation/{id}")]
-        public IHttpActionResult DeleteSelectedStation(string id)
+        [Route("api/StationEdit/DeleteSelectedStation/{selectedStation}")]
+        public IHttpActionResult DeleteSelectedStation(string selectedStation)
         {
-            int ID = int.Parse(id);
-            var station = db.Station.FirstOrDefault(x => x.Id == ID);
+            var station = db.Station.FirstOrDefault(x => x.Name == selectedStation);
 
             if (station == null)
                 return NotFound();

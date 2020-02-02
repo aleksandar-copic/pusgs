@@ -11,6 +11,7 @@
 <br>
 <form [formGroup]="stationForm" (ngSubmit)="UpdateStation()">
   <div class="form-group row">
+
     <label for="Name" class="col-sm-2 col-form-label">Station name:</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" formControlName="Name" id="Name"> 
@@ -21,6 +22,13 @@
       <input type="text" class="form-control" formControlName="Address" id="Address"> 
     </div>
   </div>
+  <select formControlName="lineEditSelected" name="lineEditSelected" class="form-control form-control-sm">
+    <option *ngFor="let t of linesToChose">
+      {{t}} 
+    </option>
+  </select>
+<br/>
+  <button type="button" class="button" (click)="updateLines()"> Add route</button>
   <div class="col-sm-10">
     <button type="submit" class="btn btn-secondary">Edit</button>
     <br/>
