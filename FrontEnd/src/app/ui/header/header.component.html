@@ -8,7 +8,6 @@
         href="http://localhost:4200/timetables"
         >TIMETABLES</a
       >
-      
       >
       <a
         *ngIf="!jwtIsAdmin() && !jwtIsController()"
@@ -16,7 +15,12 @@
         href="http://localhost:4200/pricelist"
         >PRICELIST</a
       >
-      
+      <a
+        *ngIf="!jwtIsAdmin() && !jwtIsController()"
+        class="nav-item nav-link"
+        href="http://localhost:4200/routes"
+        >ROUTES</a
+      > 
       <a
         *ngIf="!jwtIsUndefined()"
         class="nav-item nav-link"
