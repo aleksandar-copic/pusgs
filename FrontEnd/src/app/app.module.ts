@@ -38,6 +38,7 @@ import { TimetableEditHttpService} from './services/timeTableEdit.service';
 import { CurrentLocationComponent } from './current-location/current-location.component';
 import { MapComponent } from './map/map.component';
 import { RoutesComponent } from './routes/routes.component';
+import { AuthGuardLogin } from './services/http/authLogin.guard';
 
 const routes : Routes = [
   {path: "login", component: LoginComponent},
@@ -45,13 +46,13 @@ const routes : Routes = [
   {path: "register", component: RegisterComponent},
   {path: "timetables", component: RedvoznjeComponent},
   {path: "pricelist", component: CenovnikComponent},
-  {path: "profile", component: ProfilComponent},
-  {path: "cardVerification", component: CardVerificationComponent},
-  {path: "verificateUser", component: VerificateUserComponent},
-  {path: "line", component: LineComponent},
-  {path: "stationEdit", component: StationEditComponent},
-  {path: "priceListEdit", component: PriceListEditComponent},
-  {path: "timetableEdit", component: TimetableEditComponent},
+  {path: "profile", component: ProfilComponent, canActivate: [AuthGuardLogin]},
+  {path: "cardVerification", component: CardVerificationComponent, canActivate: [AuthGuardController]},
+  {path: "verificateUser", component: VerificateUserComponent, canActivate: [AuthGuardController]},
+  {path: "line", component: LineComponent, canActivate: [AuthGuardAdmin]},
+  {path: "stationEdit", component: StationEditComponent, canActivate: [AuthGuardAdmin]},
+  {path: "priceListEdit", component: PriceListEditComponent, canActivate: [AuthGuardAdmin]},
+  {path: "timetableEdit", component: TimetableEditComponent, canActivate: [AuthGuardAdmin]},
   {path: "", component: HomeComponent, pathMatch:"full"},
   {path: "map", component: MapComponent},
   {path: "routes", component: RoutesComponent},
