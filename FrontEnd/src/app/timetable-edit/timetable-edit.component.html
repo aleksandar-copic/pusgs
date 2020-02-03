@@ -36,10 +36,10 @@
     <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedDayType">
         <option *ngFor="let dayType of dayTypes">{{dayType}}</option>
     </select>  
-    <label for="selectedLine" class="col-sm-2 col-form-label">Line: </label>
-    <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedLine">
+    <!-- <label for="selectedLine" class="col-sm-2 col-form-label">Line: </label> -->
+    <!-- <select [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedLine">
         <option *ngFor="let line of allLines">{{line.SerialNumber}}</option>
-    </select>  
+    </select>   -->
     <label for="Times" class="col-sm-2 col-form-label">Departure: </label>
     <input type="text" class="form-control" [(ngModel)]="Times" formControlName="Times" id="Times"> 
     <br>

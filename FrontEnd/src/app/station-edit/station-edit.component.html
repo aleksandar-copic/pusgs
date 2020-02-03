@@ -1,12 +1,13 @@
 <br>
 <h1><b>SHOW/EDIT/DELETE STATIONS AND THEIR ROUTES</b></h1>
+<br>
 <select [(ngModel)]="selectedStation">
   <option *ngFor="let t of stations">
     {{t}} 
   </option>
 </select>
-<br/>
-<button class="btn btn-secondary" (click)="getSelectedStation()"> Prikazi Stanicu! </button>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<button class="btn btn-secondary" (click)="getSelectedStation()"> Show station </button>
 <br/>
 <br>
 <form [formGroup]="stationForm" (ngSubmit)="UpdateStation()">
@@ -28,24 +29,24 @@
     </option>
   </select>
 <br/>
-  <button type="button" class="button" (click)="updateLines()"> Add route</button>
-  <div class="col-sm-10">
+  <button type="button" class="btn btn-secondary" (click)="updateLines()">Add route</button>
+  &nbsp;
     <button type="submit" class="btn btn-secondary">Edit</button>
+  &nbsp;
+    <button class="btn btn-secondary" (click)="deleteSelectedStation()"> Delete station </button>
     <br/>
-  </div>
 </form>
 <br/>
-<br/>
-<button class="btn btn-secondary" (click)="deleteSelectedStation()"> Delete station </button>
-<br/>
-<br/>
+<!-- <button class="btn btn-secondary" (click)="deleteSelectedStation()"> Delete station </button> -->
+
+Lines of station: &nbsp;
 <select [(ngModel)]="selectedLine">
   <option *ngFor="let t of lines">
     {{t}} 
   </option>
 </select>
 <br/>
-<button class="btn btn-secondary" (click)="getSelectedLine()"> Show route </button>
+<!-- <button class="btn btn-secondary" (click)="getSelectedLine()"> Show route </button>
 <br/><br>
 <form [formGroup]="lineForm" (ngSubmit)="IzmeniLiniju()">
   <div class="form-group row">
@@ -54,29 +55,31 @@
       <input type="text" class="form-control" formControlName="SerialNumber" id="SerialNumber"> 
     </div>
   </div>
-</form>
-
+</form> -->
+<br><br/>
 <h1><b>ADD ROUTE</b></h1>
-<br/>
 <br/>
 
 <label>Station name:</label>
 <div class="col-sm-10">
   <input type="text" [(ngModel)]="ime" name="ime" id="ime"> 
 </div>
+<br>
 <label>Address:</label>
 <div class="col-sm-10">
   <input type="text" [(ngModel)]="adresa" name="adresa" id="adresa"> 
 </div>
-
+<br>
+Choose the line: &nbsp;
 <select [(ngModel)]="lineAddSelected">
   <option *ngFor="let t of linesToChose">
     {{t}} 
   </option>
 </select>
+<br>
 <br/>
-  <button class="btn btn-secondary" (click)="addLine()"> Add route on station </button>
+  <button class="btn btn-secondary" (click)="addLine()">Add station on route</button>
 <br/>
 <br/>
-  <button class="btn btn-secondary" (click)="AddStation()"> Add station </button>
+  <button class="btn btn-secondary" (click)="AddStation()">Add station</button>
 <br/><br>

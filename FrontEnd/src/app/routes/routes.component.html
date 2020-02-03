@@ -5,7 +5,7 @@
         {{t}} 
         </option>
     </select>
-    <br>
+    &nbsp;
     <button type="submit" (click)="getSelectedLine(lineName.value)">Show</button>
 </div>
 <p>
@@ -15,7 +15,7 @@
         
         <!-- Iscrtavanje stanica i njenih informacija -->
         <agm-marker *ngFor="let st of stationsArray" [latitude]="st.X" [longitude]="st.Y" [title]="st.Address"
-          [iconUrl]="polyline.iconUrl">
+          [iconUrl]="polyline.icon">
 
             <!-- Svakom markeru dodajemo info-window (Nije obavezno!)-->
             <agm-info-window [latitude]="st.X" [longitude]="st.Y" >
@@ -33,7 +33,7 @@
             </agm-polyline-point>
        </agm-polyline>
 
-       <!--Verovatno ne treba, jer se iscrtavaju sve stanice, a putanju cine stanice-->
+       <!-- Verovatno ne treba, jer se iscrtavaju sve stanice, a putanju cine stanice-->
        <!-- <agm-marker *ngFor="let point of polyline.path" [latitude]="point.latitude" [longitude]="point.longitude" [iconUrl]="polyline.icon">
        </agm-marker> -->
 

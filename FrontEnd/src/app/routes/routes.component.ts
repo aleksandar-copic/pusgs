@@ -81,6 +81,10 @@ export class RoutesComponent implements OnInit {
 
   // Get all stations from selected line and add them into stationsArray and polyline
   getSelectedLine(lineName: string){
+    this.polyline.path = [];
+    this.stations = [];
+    this.stationsArray = [];
+    
     this.http.getLine(lineName).subscribe((data) => {
       this.line = data;
       //this.lineForm.patchValue({ SerialNumber : data.SerialNumber })
